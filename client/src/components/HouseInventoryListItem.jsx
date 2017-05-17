@@ -1,15 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 
-import RaisedButton from 'material-ui/RaisedButton';
-import {Card, CardActions } from 'material-ui/Card';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-
-import { Grid, Row, Col } from 'react-bootstrap';
 
 const styles = {
   cards: {
