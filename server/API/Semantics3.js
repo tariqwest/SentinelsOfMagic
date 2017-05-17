@@ -1,5 +1,5 @@
 var api_key = 'SEM3942C3257593610034912C7C90584FACC';
-var api_secret = 'N2IyYjAyMWVmYWZhNmMxN2YyMTAwZjc3YWMxMzhiM2Y';
+var api_secret = '';
 var sem3 = require('semantics3-node')(api_key,api_secret);
 
 sem3.products.products_field('upc', '323900038462')
