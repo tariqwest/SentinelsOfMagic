@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardActions } from 'material-ui/Card';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
@@ -23,6 +24,10 @@ const styles = {
     height: 'auto',
     margin: 20,
     textAlign: 'center',
+  },
+  anchor: {
+    textDecoration: 'none',
+    fontSize: '.8em',
   },
 }
 
@@ -48,30 +53,6 @@ class HouseInventoryListItem extends React.Component {
       },
       colorState: 'green',
     };
-  }
-
-  componentDidMount() {
-    if (!this.state.needToRestock) {
-      // GREEN
-      this.setState({
-        colorState: this.state.colorStyle.stock,
-      });
-    } else if (this.state.needToRestock && this.state.username === null) {
-      // RED
-      this.setState({
-        colorState: this.state.colorStyle.restock,
-      });
-    } else if (this.state.needToRestock && typeof this.state.username === 'string' && Number(this.state.userId) !== Number(this.state.itemUserId)) {
-      // ORANGE
-      this.setState({
-        colorState: this.state.colorStyle.otherClaim,
-      });
-    } else if (this.state.needToRestock && typeof this.state.username === 'string' && Number(this.state.userId) === Number(this.state.itemUserId)) {
-      // Blue
-      this.setState({
-        colorState: this.state.colorStyle.userClaim,
-      });
-    }
   }
 
   clickRestock(event) {
@@ -137,45 +118,37 @@ class HouseInventoryListItem extends React.Component {
   render() {
     if (!this.state.needToRestock) {
       return (
-        <Card className="green">
-          <Row>
-            <Col  xs={12} md={6}>
-              <img src={this.state.imgSrc} style={styles.img} alt="food"/>
-            </Col>
-            <Col xs={12} md={4}>
-              <h2 className="item-name">{this.state.name}</h2>
-              <h4 className="item-notes">{this.state.notes}</h4>
-              <h4 className="item-notes">{this.state.price}</h4>
-            </Col>
-          <Col xs={12} md={2}>
-            <CardActions className="iconMenu">
-              <IconMenu
-              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-              anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-              targetOrigin={{horizontal: 'left', vertical: 'top'}}
-              >
-              <MenuItem primaryText="Restock" onClick={this.clickRestock.bind(this)} />
-              <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
-              </IconMenu>
-            </CardActions>
-          </Col>
-          </Row>
-        </Card>
+        <div className="row">
+          <div style={styles.paper}>
+            <div className="green item_outer">
+              <div className="item_inner">
+                <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
+                <h2>{this.state.name}</h2>
+                <h4>{this.state.notes}</h4>
+                <h4>{this.state.price}</h4>
+                <IconMenu
+                  iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                  anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+                  targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                >
+                  <MenuItem primaryText="Restock" onClick={this.clickRestock.bind(this)} />
+                  <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
+                </IconMenu>
+              </div>
+            </div>
+          </div>
+        </div>
       );
     } else if (this.state.needToRestock && this.state.username === null) {
       return (
-        <Card className="red">
-          <Row>
-            <Col xs={12} md={6}>
-              <img src={this.state.imgSrc} style={styles.img} alt="food" />
-            </Col>
-            <Col xs={12} md={4}>
-              <h2 className="item-name">{this.state.name}</h2>
-              <h4 className="item-notes">{this.state.notes}</h4>
-              <h4 className="item-notes">{this.state.price}</h4>
-            </Col>
-            <Col xs={12} md={2}>
-              <CardActions className="iconMenu">
+        <div className="row">
+          <div style={styles.paper}>
+            <div className="red item_outer">
+              <div className="item_inner">
+                <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
+                <h2>{this.state.name}</h2>
+                <h4>{this.state.notes}</h4>
+                <h4>{this.state.price}</h4>
                 <IconMenu
                   iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
                   anchorOrigin={{horizontal: 'left', vertical: 'top'}}
@@ -185,63 +158,58 @@ class HouseInventoryListItem extends React.Component {
                   <MenuItem primaryText="Undo" onClick={this.clickUndo.bind(this)} />
                   <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
                 </IconMenu>
-              </CardActions>
-            </Col>
-          </Row>
-        </Card>
+              </div>
+            </div>
+          </div>
+        </div>
       );
     } else if (this.state.needToRestock && typeof this.state.username === 'string' && Number(this.state.userId) !== Number(this.state.itemUserId)) {
       return (
-        <Card className="orange">
-          <Row>
-            <Col xs={12} md={6}>
-              <img src={this.state.imgSrc} style={styles.img} alt="food" />
-            </Col>
-            <Col xs={12} md={4}>
-              <h2 className="item-name">{this.state.name}</h2>
-              <h4 className="item-notes">{this.state.notes}</h4>
-              <h4 className="item-notes">{this.state.price}</h4>
-              <h6>{`Claimed by ${this.state.username}`}</h6>
-            </Col>
-            <Col xs={12} md={2}>
-              <CardActions className="iconMenu">
+        <div className="row">
+          <div style={styles.paper}>
+            <div className="orange item_outer">
+              <div className="item_inner">
+                <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
+                <h2>{this.state.name}</h2>
+                <h4>{this.state.notes}</h4>
+                <h4>{this.state.price}</h4>
+                <h6>{`Claimed by ${this.state.username}`}</h6>
                 <IconMenu
                   iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
                   anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                   targetOrigin={{horizontal: 'left', vertical: 'top'}}
                 >
                   <MenuItem primaryText="Learn More" />
+                  <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
                 </IconMenu>
-              </CardActions>
-            </Col>
-          </Row>
-        </Card>
+              </div>
+            </div>
+          </div>
+        </div>
       );
     } else if (this.state.needToRestock && typeof this.state.username === 'string' && Number(this.state.userId) === Number(this.state.itemUserId)) {
       return (
-        <Card className="blue">
-          <Row>
-            <Col xs={12} md={6}>
-              <img src={this.state.imgSrc} style={styles.img} alt="food" />
-            </Col>
-            <Col xs={12} md={4}>
-              <h2 className="item-name">{this.state.name}</h2>
-              <h4 className="item-notes">{this.state.notes}</h4>
-              <h4 className="item-notes">{this.state.price}</h4>
-            </Col>
-            <Col xs={12} md={2}>
-              <CardActions className="iconMenu">
+        <div className="row">
+          <div style={styles.paper}>
+            <div className="blue item_outer">
+              <div className="item_inner">
+                <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
+                <h2>{this.state.name}</h2>
+                <h4>{this.state.notes}</h4>
+                <h4>{this.state.price}</h4>
+                <h6>{`Claimed by You, ${this.state.username}`}</h6>
                 <IconMenu
                   iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
                   anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                   targetOrigin={{horizontal: 'left', vertical: 'top'}}
                 >
                   <MenuItem primaryText="Unclaim" onClick={this.clickUnclaim.bind(this)} />
+                  <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
                 </IconMenu>
-              </CardActions>
-            </Col>
-          </Row>
-        </Card>
+              </div>
+            </div>
+          </div>
+        </div>
       );
     }
   }

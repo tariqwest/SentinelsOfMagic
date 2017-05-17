@@ -168,45 +168,55 @@ a:hover {
 }
 
 .orange {
-  background-color: #EF6F6C !important;
+  background-color: #FF4081 !important;
 }
 
 /* cards */
 
-.flex-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: stretch;
-  justify-content: space-between;
-  align-content: stretch;
-}
-
 .row {
   width: 100%;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row nowrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.item_outer {
+  box-shadow: 1px 5px 15px #CCC;
+  width: 15em;
+  height: auto;
+  border-radius: 3px;
+  padding: 2em;
+  margin: 1em;
+  overflow: hidden;
+  position: relative;
+  -webkit-box-flex: 1;
+  -ms-flex: auto;
+  flex: auto;
+}
+
+.item_outer img {
+  max-width: 100%;
+  height: auto !important;
+  text-align: center;
+  border-radius: 5%;
+  margin-bottom: 10%;
 }
 .item_inner {
-  /*max-width: 15em;*/
-  height: 100%;
-  border-radius: 3px;
-  position: relative;
-  flex: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  flex-flow: row nowrap;
+  -ms-flex-flow: column wrap;
+  flex-flow: column wrap;
 }
 
-.flex {
-  display: flex;
-  align-items: center;
-  flex-flow: row wrap;
-
-}
-
-
-.iconMenu {
-  flex-wrap: wrap;
+.z-depth-3 {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
 }
