@@ -12,8 +12,18 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 const styles = {
   cards: {
-    minHeight: '100%',
-  }
+    maxHeight: '100%',
+  },
+  img: {
+    minHeight:'100%',
+    width: '100%',
+  },
+  paper: {
+    maxWidth: '15em',
+    height: 'auto',
+    margin: 20,
+    textAlign: 'center',
+  },
 }
 
 class HouseInventoryListItem extends React.Component {
@@ -127,40 +137,44 @@ class HouseInventoryListItem extends React.Component {
   render() {
     if (!this.state.needToRestock) {
       return (
-        <Card className="green" style={styles.cards}>
-            <Row className="flex-container">
-              <Col xs={12} md={5} className="flex"><img src={this.state.imgSrc} width="150" height="100%" alt="food" /></Col>
-              <Col xs={12} md={5} className="flex">
-                <h2 className="item-name">{this.state.name}</h2>
-                <h4 className="item-notes">{this.state.notes}</h4>
-                <h4 className="item-notes">{this.state.price}</h4>
-              </Col>
-              <Col xs={12} md={3} className="flex">
-                <CardActions className="iconMenu">
-                  <IconMenu
-                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                    anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                    targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                  >
-                    <MenuItem primaryText="Restock" onClick={this.clickRestock.bind(this)} />
-                    <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
-                  </IconMenu>
-                </CardActions>
-              </Col>
-            </Row>
-        </Card>
-      );
-    } else if (this.state.needToRestock && this.state.username === null) {
-      return (
-        <Card className="red" style={styles.cards}>
-          <Row className="flex-container">
-            <Col xs={12} md={5} className="flex"><img src={this.state.imgSrc} width="150" height="100%" alt="food" /></Col>
-            <Col xs={12} md={5} className="flex">
+        <Card className="green">
+          <Row>
+            <Col  xs={12} md={6}>
+              <img src={this.state.imgSrc} style={styles.img} alt="food"/>
+            </Col>
+            <Col xs={12} md={4}>
               <h2 className="item-name">{this.state.name}</h2>
               <h4 className="item-notes">{this.state.notes}</h4>
               <h4 className="item-notes">{this.state.price}</h4>
             </Col>
-            <Col xs={12} md={3} className="flex">
+          <Col xs={12} md={2}>
+            <CardActions className="iconMenu">
+              <IconMenu
+              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+              anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+              targetOrigin={{horizontal: 'left', vertical: 'top'}}
+              >
+              <MenuItem primaryText="Restock" onClick={this.clickRestock.bind(this)} />
+              <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
+              </IconMenu>
+            </CardActions>
+          </Col>
+          </Row>
+        </Card>
+      );
+    } else if (this.state.needToRestock && this.state.username === null) {
+      return (
+        <Card className="red">
+          <Row>
+            <Col xs={12} md={6}>
+              <img src={this.state.imgSrc} style={styles.img} alt="food" />
+            </Col>
+            <Col xs={12} md={4}>
+              <h2 className="item-name">{this.state.name}</h2>
+              <h4 className="item-notes">{this.state.notes}</h4>
+              <h4 className="item-notes">{this.state.price}</h4>
+            </Col>
+            <Col xs={12} md={2}>
               <CardActions className="iconMenu">
                 <IconMenu
                   iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -178,16 +192,18 @@ class HouseInventoryListItem extends React.Component {
       );
     } else if (this.state.needToRestock && typeof this.state.username === 'string' && Number(this.state.userId) !== Number(this.state.itemUserId)) {
       return (
-        <Card className="orange" style={styles.cards}>
-          <Row className="flex-container">
-            <Col xs={12} md={5} className="flex"><img src={this.state.imgSrc} width="150" height="100%" alt="food" /></Col>
-            <Col xs={12} md={5} className="flex">
+        <Card className="orange">
+          <Row>
+            <Col xs={12} md={6}>
+              <img src={this.state.imgSrc} style={styles.img} alt="food" />
+            </Col>
+            <Col xs={12} md={4}>
               <h2 className="item-name">{this.state.name}</h2>
               <h4 className="item-notes">{this.state.notes}</h4>
               <h4 className="item-notes">{this.state.price}</h4>
               <h6>{`Claimed by ${this.state.username}`}</h6>
             </Col>
-            <Col xs={12} md={3} className="flex">
+            <Col xs={12} md={2}>
               <CardActions className="iconMenu">
                 <IconMenu
                   iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -203,15 +219,17 @@ class HouseInventoryListItem extends React.Component {
       );
     } else if (this.state.needToRestock && typeof this.state.username === 'string' && Number(this.state.userId) === Number(this.state.itemUserId)) {
       return (
-        <Card className="blue" style={styles.cards}>
-          <Row className="flex-container">
-            <Col xs={12} md={5} className="flex"><img src={this.state.imgSrc} width="150" height="100%" alt="food" /></Col>
-            <Col xs={12} md={5} className="flex">
+        <Card className="blue">
+          <Row>
+            <Col xs={12} md={6}>
+              <img src={this.state.imgSrc} style={styles.img} alt="food" />
+            </Col>
+            <Col xs={12} md={4}>
               <h2 className="item-name">{this.state.name}</h2>
               <h4 className="item-notes">{this.state.notes}</h4>
               <h4 className="item-notes">{this.state.price}</h4>
             </Col>
-            <Col xs={12} md={3} className="flex">
+            <Col xs={12} md={2}>
               <CardActions className="iconMenu">
                 <IconMenu
                   iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}

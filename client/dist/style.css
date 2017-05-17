@@ -182,8 +182,27 @@ a:hover {
   align-content: stretch;
 }
 
+.row {
+  width: 100%;
+  justify-content: flex-start;
+  display: flex;
+  flex-flow: row nowrap;
+}
+.item_inner {
+  /*max-width: 15em;*/
+  height: 100%;
+  border-radius: 3px;
+  position: relative;
+  flex: auto;
+  display: flex;
+  align-items: center;
+  flex-flow: row nowrap;
+}
+
 .flex {
-  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
 
 }
 
