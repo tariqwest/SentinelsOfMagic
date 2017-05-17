@@ -34,6 +34,7 @@
     "nodemon": "^1.11.0",
     "pg-promise": "^5.6.7",
     "react": "^15.5.4",
+    "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
@@ -43,9 +44,14 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "eslint": "^2.10.2",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.0",
+    "eslint-plugin-jsx-a11y": "^1.2.0",
+    "eslint-plugin-react": "^5.1.1",
     "mocha": "^3.3.0",
-    "node-mocks-http": "^1.6.2"
+    "node-mocks-http": "^1.6.2",
+    "webpack": "^2.5.1"
   },
   "babel": {
     "presets": [

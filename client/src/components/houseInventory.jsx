@@ -6,7 +6,6 @@ import Nav from './Nav.jsx';
 import AddItem from './AddItem.jsx';
 import {parse} from 'cookie';
 
-
 class HouseInventory extends React.Component {
   constructor(props) {
     super(props);

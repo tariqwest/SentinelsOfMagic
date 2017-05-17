@@ -2,9 +2,15 @@ import React from 'react';
 import HouseInventoryListItem from './HouseInventoryListItem.jsx';
 import { GridList, GridTile } from 'material-ui/GridList';
 
+const styles = {
+  pad: {
+    margin: '5%',
+  },
+}
+
 var HouseInventoryList = (props) => {
   return (
-    <GridList cellHeight="auto" cols={4} padding={15}>
+    <GridList cellHeight="auto" cols={3} padding={15} style={styles.pad}>
       {props.items.map((item) =>
         <HouseInventoryListItem
         item={item}
