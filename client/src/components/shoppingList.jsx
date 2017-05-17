@@ -19,7 +19,11 @@ class ShoppingList extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {shoppingListItems: [], page: 'shop', selected: []};
+    this.state = {
+      shoppingListItems: [],
+      page: 'shop',
+      selected: []
+    };
 
     this.handleRowSelection = this.handleRowSelection.bind(this);
     this.isSelected = this.isSelected.bind(this);

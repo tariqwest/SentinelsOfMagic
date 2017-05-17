@@ -30,8 +30,13 @@ a {
   transition: color 0.4s;
 }
 
-h2, h4 {
+h2, h3, h4, h5, h6 {
   text-transform: uppercase;
+  color: white !important;
+}
+
+svg {
+  color: white !important;
 }
 
 .title a {
@@ -120,6 +125,12 @@ a:hover {
   text-align: center;
 }
 
+.foodItem {
+  text-align: center;
+  padding: 5%;
+  margin: 2.5%;
+}
+
 .item-name {
   text-transform: uppercase;
   text-align: center;
@@ -140,4 +151,43 @@ a:hover {
 
 .black-text {
   color: #000;
+}
+
+/* Card Colors */
+
+.green {
+  background-color: #28cb75 !important;
+}
+
+.red {
+  background-color: #E84855 !important;
+}
+
+.blue {
+  background-color: #00BCD4 !important;
+}
+
+.orange {
+  background-color: #EF6F6C !important;
+}
+
+/* cards */
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: space-between;
+  align-content: stretch;
+}
+
+.flex {
+  flex-wrap: wrap;
+
+}
+
+
+.iconMenu {
+  flex-wrap: wrap;
 }
