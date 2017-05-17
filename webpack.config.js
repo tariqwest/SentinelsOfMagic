@@ -6,25 +6,25 @@ module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
   output: {
     path: DIST_DIR,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
-  module : {
-    loaders : [
+  module: {
+    loaders: [
       {
-        test : /\.jsx?/,
-        include : SRC_DIR,
-        loader : 'babel-loader',
+        test: /\.jsx?/,
+        include: SRC_DIR,
+        loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015']
-        }
-      }
-    ]
+          presets: ['react', 'es2015'],
+        },
+      },
+    ],
   },
   resolve: {
     modules: [
       path.resolve('./client'),
-      'node_modules'
-    ]
-  }
+      'node_modules',
+    ],
+  },
   // watch: true
 };
