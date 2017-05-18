@@ -30,8 +30,13 @@ a {
   transition: color 0.4s;
 }
 
-h2, h4 {
+h2, h3, h4, h5, h6 {
   text-transform: uppercase;
+  color: white !important;
+}
+
+svg {
+  color: white !important;
 }
 
 .title a {
@@ -94,9 +99,9 @@ a:hover {
   width: 700px;
 }
 
-.block {
-  display: block;
-}
+/*.block {*/
+  /*display: block;*/
+/*}*/
 
 .card-heading {
   padding: 16px;
@@ -120,6 +125,12 @@ a:hover {
   text-align: center;
 }
 
+.foodItem {
+  text-align: center;
+  padding: 5%;
+  margin: 2.5%;
+}
+
 .item-name {
   text-transform: uppercase;
   text-align: center;
@@ -140,4 +151,72 @@ a:hover {
 
 .black-text {
   color: #000;
+}
+
+/* Card Colors */
+
+.green {
+  background-color: #28cb75 !important;
+}
+
+.red {
+  background-color: #E84855 !important;
+}
+
+.blue {
+  background-color: #00BCD4 !important;
+}
+
+.orange {
+  background-color: #FF4081 !important;
+}
+
+/* cards */
+
+.row {
+  width: 100%;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.item_outer {
+  box-shadow: 1px 5px 15px #CCC;
+  width: 15em;
+  height: auto;
+  border-radius: 3px;
+  padding: 2em;
+  margin: 1em;
+  overflow: hidden;
+  position: relative;
+  -webkit-box-flex: 1;
+  -ms-flex: auto;
+  flex: auto;
+}
+
+.item_outer img {
+  max-width: 100%;
+  height: auto !important;
+  text-align: center;
+  border-radius: 5%;
+  margin-bottom: 10%;
+}
+.item_inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-flow: column wrap;
+  flex-flow: column wrap;
+}
+
+.z-depth-3 {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
 }

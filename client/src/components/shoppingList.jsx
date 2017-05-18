@@ -3,8 +3,7 @@ import auth from '../lib/clientAuth.js';
 import RaisedButton from 'material-ui/RaisedButton';
 import Nav from './Nav.jsx';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {BrowserRouter as Router} from 'react-router-dom';
+
 import {
   Table,
   TableBody,
@@ -19,7 +18,11 @@ class ShoppingList extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {shoppingListItems: [], page: 'shop', selected: []};
+    this.state = {
+      shoppingListItems: [],
+      page: 'shop',
+      selected: []
+    };
 
     this.handleRowSelection = this.handleRowSelection.bind(this);
     this.isSelected = this.isSelected.bind(this);
