@@ -4,7 +4,7 @@ var secret = process.env.SEM3_SECRET;
 var sem3 = require('semantics3-node')(key, secret);
 
 module.exports = {
-  setUpc: (upcCode) => {
+  setUpc: (upcCode, callback) => {
       sem3.products.products_field('upc', upcCode); // set up UPC
       // 786162338006 - Smart Water
       // ç - shakerbottle
@@ -14,16 +14,16 @@ module.exports = {
 
       // API request
       sem3.products.get_products(
-      (err, res) => {
+      (err, response) => {
           if (err) {
             console.log(err);
             return;
           }
 
-      res = JSON.parse(res);
-      var options = res.results[0].sitedetails; //array of objs
-      var currentSite = res.results[0].sitedetails[0].url;
-      var currentPrice = res.results[0].price;
+      response = JSON.parse(response);
+      var options = response.results[0].sitedetails; //array of objs
+      var currentSite = response.results[0].sitedetails[0].url;
+      var currentPrice = response.results[0].price;
 
       for (var i = 0; i < options.length; i++){
         for (var j = 0; j < options[i].latestoffers.length; j++){
@@ -34,13 +34,13 @@ module.exports = {
       }
 
       var result = {
-        title: res.results[0].name,
-        image: res.results[0].images[0],
-        price: res.results[0].price,
+        title: response.results[0].name,
+        image: response.results[0].images[0],
+        price: response.results[0].price,
         site: currentSite,
       }
-      console.log(result)
-      return result;
+    
+      callback.json(result)
       
     })
 

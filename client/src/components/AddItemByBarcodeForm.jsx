@@ -38,11 +38,7 @@ class AddItemByBarcodeForm extends React.Component {
   postItem(obj) {
 
     axios.post('/add', obj)
-      .then((res) => {
-
-    axios.post('/add/UPC', obj)
       .then(res => {
-
         console.log('Successful POST request to /add');
         this.props.submitItem();
         this.props.handleClose();

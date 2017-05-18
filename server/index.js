@@ -273,15 +273,15 @@ app.post('/add', (req, res) => {
 app.get('/api/shop', checkAuth.APICall, routeHandlers.getShoppingList);
 app.post('/api/shop', checkAuth.pageRequest, routeHandlers.updateWithPurchases);
 
-app.post('/find-product', (req, res)=>{
-  const clientResponse = {
-    title: 'Tyson\'s Cage Raised Miserable Chicken',
-    image: 'http://pixel.nymag.com/imgs/daily/grub/2017/02/07/07-tyson-chicken.w1200.h630.jpg',
-    price: '$9.99',
-    url: 'https://www.walmart.com/ip/Tyson-All-Natural-Boneless-Skinless-Chicken-Breasts/50067993'
-  }
-  res.send(clientResponse);
-});
+// app.post('/find-product', (req, res)=>{
+//   const clientResponse = {
+//     title: 'Tyson\'s Cage Raised Miserable Chicken',
+//     image: 'http://pixel.nymag.com/imgs/daily/grub/2017/02/07/07-tyson-chicken.w1200.h630.jpg',
+//     price: '$9.99',
+//     url: 'https://www.walmart.com/ip/Tyson-All-Natural-Boneless-Skinless-Chicken-Breasts/50067993'
+//   }
+//   res.send(clientResponse);
+// });
 
 
 app.get('*', function(req, res) {
@@ -292,11 +292,9 @@ app.listen(process.env.PORT || 1337, function() {
   console.log('Listening on 1337...');
 });
 
-app.post('/add/UPC', (req,res) => {
-  var barcode = req.body.decodedBarcode;
-  var result = upc.setUpc(barcode);
-
-  console.log(result)
+app.post('/find-product', (req,res) => {
+  var barcode = req.body.barcode;
+  var result = upc.setUpc(barcode, res);
   
   
 })
