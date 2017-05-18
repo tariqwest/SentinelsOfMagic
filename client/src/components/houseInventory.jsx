@@ -3,7 +3,6 @@ import axios from 'axios';
 import HouseInventoryList from './HouseInventoryList.jsx';
 import Nav from './Nav.jsx';
 import AddItem from './AddItem.jsx';
-import AddItemByBarcode from './AddItemByBarcode.jsx';
 import {parse} from 'cookie';
 
 class HouseInventory extends React.Component {
@@ -101,7 +100,6 @@ class HouseInventory extends React.Component {
         <h1>😇</h1>
         <h2>Welcome {this.state.username}</h2>
         <AddItem houseId={this.state.houseId} submitItem={this.submitItem.bind(this)}/>
-        <AddItemByBarcode houseId={this.state.houseId} submitItem={this.submitItem.bind(this)}/>
         <HouseInventoryList items={this.state.items} userId={this.state.userId} submitItem={this.submitItem.bind(this)}/>
       </div>
     );

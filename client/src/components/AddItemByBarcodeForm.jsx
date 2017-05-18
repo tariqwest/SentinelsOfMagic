@@ -1,35 +1,48 @@
 import React from 'react';
 import axios from 'axios';
+import { Get, Post } from 'react-axios'
 import { NavLink, Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
 import Quagga from 'quagga';
 
+const styles = {
+  image: {
+    width: 200,
+    height: 200
+  },
+  fileinput: {
+    display: 'none'
+  }
+}
 
 class AddItemByBarcodeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.fileUpload = null;
     this.state = {
       name: '',
-      notes: '',
+      notes: 'null',
       houseId: this.props.houseId,
       errorName: '',
       errorText: '',
-      decodedBarcode: '' 
+      decodedBarcode: '',
+      errorDecodedBarcode: '',
+      productStatus: null
     };
     this.decodeBarcode = this.decodeBarcode.bind(this);
+    this.getProductByBarcode = this.getProductByBarcode.bind(this);
   }
 
   postItem(obj) {
     axios.post('/add', obj)
-      .then(res => {
+      .then((res) => {
         console.log('Successful POST request to /add');
         this.props.submitItem();
-        this.props.toggleForm(false);
+        this.props.handleClose();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Bad POST request to /add: ', err.response.data);
         this.setState({
           errorName: err.response.data.name,
@@ -40,10 +53,6 @@ class AddItemByBarcodeForm extends React.Component {
 
   clickSubmit(event) {
     this.postItem(this.state);
-  }
-
-  clickCancel(event) {
-    this.props.toggleForm(false);
   }
 
   saveName(event) {
@@ -61,10 +70,11 @@ class AddItemByBarcodeForm extends React.Component {
   decodeBarcode(e){
     console.log(e.currentTarget.files[0].name);
     var barcodeImage = e.currentTarget.files[0];
-    var cb = function(result) {
+    var decodeResult = function(result) {
         if(result.codeResult) {
           console.log("result", result.codeResult.code);
           this.setState({decodedBarcode: result.codeResult.code});
+          this.getProductByBarcode(result.codeResult.code);
         } else {
           console.log("not detected");
         }
@@ -80,69 +90,81 @@ class AddItemByBarcodeForm extends React.Component {
       },
       patchSize: 'medium',
       locate: true
-      }, cb.bind(this));
+      }, decodeResult.bind(this));
+  }
+
+  getProductByBarcode(barcode){
+    this.setState({product: 'loading'});
+    axios.post('/find-product', { barcode: barcode })
+    .then(res => {
+      console.log(res);
+      this.setState({
+        name: res.data.title,
+        price: res.data.price,
+        image: res.data.image,
+        productStatus: 'found' 
+      });
+    })
+    .catch(err => {
+      throw err;
+    });
   }
 
   componentDidMount(){
-    Quagga.init({
-    inputStream : {
-      name : "Static",
-      type : "ImageStream",
-      target: this.fileUpload //document.querySelector('#yourElement') Or '#yourElement' (optional)
-    },
-    decoder : {
-      readers : ["code_128_reader"]
-    }
-  }, function(err) {
-      if (err) {
-          console.log(err);
-          return
-      }
-      console.log("Initialization finished. Ready to start");
-      Quagga.start();
-  });
+
   }
 
   render() {
-    return (
-      <Card className="container">
-        <form>
-          <h4 className="card-heading">Add Item by UPC</h4>
-          <div className="field-line">
-            <RaisedButton
-               containerElement='label' // <-- Just add me!
-               label=''>
-              <input 
-                type="file"
-                onChange={this.decodeBarcode}
-                ref={(ref) => this.fileUpload = ref}
-              />
-            </RaisedButton>
-          </div>
-          <div className="field-line">
-            <TextField
-              floatingLabelText="UPC Code"
-              type="text"
-              value={this.state.decodedBarcode}
-              errorText={this.state.errorNotes}>
-            </TextField>
-          </div>
-          <div className="field-line">
-            <TextField
-              floatingLabelText="Notes"
-              type="text"
-              value={this.state.notes}
-              onChange={this.saveNotes.bind(this)}
-              errorText={this.state.errorNotes}>
-            </TextField>
-          </div>
-          <div className="button-line">
-            <RaisedButton primary={true} label="Submit" onClick={this.clickSubmit.bind(this)}></RaisedButton>
-            <RaisedButton primary={true} label="Cancel" onClick={this.clickCancel.bind(this)}></RaisedButton>
-          </div>
-        </form>
-      </Card>
-    );
+
+    const content = ()=>{
+        if(this.state.productStatus === 'loading'){
+          return (
+            <CircularProgress size={80} thickness={5} />
+          );
+        }else if(this.state.productStatus === 'found'){
+          return (
+            <div>
+              <img style={styles.image} src={this.state.image} />
+              <div>{this.state.name}</div>
+              <div>{this.state.price}</div>
+            </div>
+          );
+        }else{
+          return (
+              <div>
+                <div className="field-line">
+                  <RaisedButton
+                     containerElement='label' // <-- Just add me!
+                     label='Upload Image'>
+                    <input 
+                      type="file"
+                      style={styles.fileinput}
+                      onChange={this.decodeBarcode}
+                    />
+                  </RaisedButton>
+                </div>
+                <div className="field-line">
+                  <TextField
+                    floatingLabelText="UPC Code"
+                    type="text"
+                    value={this.state.decodedBarcode}
+                    errorText={this.state.errorDecodedBarcode}>
+                  </TextField>
+                </div>
+                </div>
+          );
+        }
+
+    }
+
+    return(
+      <form>
+      {content()}
+        <div className="button-line">
+          <RaisedButton primary={true} label="Submit" onClick={this.clickSubmit.bind(this)}></RaisedButton>
+        </div>
+      </form>
+    ) 
   }
 }
 

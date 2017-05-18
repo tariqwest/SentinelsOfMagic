@@ -37,6 +37,7 @@
     "process": "^0.11.10",
     "quagga": "^0.11.6",
     "react": "^15.5.4",
+    "react-axios": "0.0.9",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
     "react-router": "^4.1.1",
