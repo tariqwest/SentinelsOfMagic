@@ -257,3 +257,7 @@ a:hover {
   opacity: .2;
   transition: 0s;
 }
+
+.star:active {
+  color: red;
+}

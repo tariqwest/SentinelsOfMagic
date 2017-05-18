@@ -7,12 +7,12 @@ import AddItemForm from './AddItemForm.jsx';
 
 const styles = {
   width: '80%',
-  margin: '-5% auto 30%',
+  margin: '0 auto 30%',
   maxWidth: 'none',
   textAlign: 'center',
 };
 
-class DialogExampleSimple extends React.Component {
+class AddItemDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,18 +47,22 @@ class DialogExampleSimple extends React.Component {
       <div>
         <RaisedButton label="Add Item by Search" secondary={true} onTouchTap={this.handleOpen} />
         <Dialog
-          title="Dialog With Actions"
+          title="Add Item by Search"
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
           contentStyle={styles}
         >
-          <AddItemForm />
+          <AddItemForm
+            houseId={this.props.houseId}
+            submitItem={this.props.submitItem}
+            handleClose={this.handleClose}
+          />
         </Dialog>
       </div>
     );
   }
 }
 
-export default DialogExampleSimple;
+export default AddItemDialog;

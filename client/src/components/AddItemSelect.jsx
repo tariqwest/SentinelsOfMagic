@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import Star from 'material-ui/svg-icons/toggle/star';
 
 const styles = {
   root: {
@@ -19,33 +21,41 @@ const styles = {
   },
 };
 
-class SearchedFood extends Component {
+class AddItemSelect extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      name: 'hello world',
+      notes: 'hello world',
       searchedFoods: this.props.searchedFoods,
+      houseId: this.props.houseId,
       selected: [],
+      errorName: '',
+      errorText: '',
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSelection = this.handleSelection.bind(this);
   }
 
-  handleClick() {
-    console.log('CLICKED');
-  }
-
-  handleRowSelection(selectedRow) {
-    console.log(selectedRow);
-    if (Array.isArray(selectedRow)) {
+  postItem(obj) {
+    axios.post('/add', obj)
+    .then(res => {
+      console.log('Successful POST request to /add');
+      this.props.submitItem();
+      this.props.handleClose();
+    })
+    .catch(err => {
+      console.log('Bad POST request to /add: ', err.response.data);
       this.setState({
-        selected: selectedRow,
+        errorName: err.response.data.name,
+        errorNotes: err.response.data.notes,
       });
-    }
+    })
   }
 
-  handleItemSelection() {
-    console.log('I WAS CLICKED')
-    console.log(this.state.searchedFoods[this.state.selected]);
+  handleSelection(index) {
+    console.log(this.state.searchedFoods[index]);
+    this.postItem(this.state);
   }
 
   render() {
@@ -57,10 +67,9 @@ class SearchedFood extends Component {
               key={index}
               title={item.title}
               className="ripple"
-              actionIcon={<IconButton><StarBorder color="rgb(0, 188, 212)" /></IconButton>}
               titleStyle={styles.titleStyle}
-              titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-              onClick={() => this.handleClick(index)}
+              titleBackground="linear-gradient(to top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.75) 70%,rgba(0,0,0,0.7) 100%)"
+              onClick={() => this.handleSelection(index)}
             >
               <img src={item.image} />
             </GridTile>
@@ -71,4 +80,4 @@ class SearchedFood extends Component {
   }
 }
 
-export default SearchedFood;
+export default AddItemSelect;

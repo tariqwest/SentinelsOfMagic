@@ -4,7 +4,7 @@ import axios from 'axios';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import SearchedFood from './SearchedFood.jsx';
+import AddItemSelect from './AddItemSelect.jsx';
 
 class AddItemForm extends React.Component {
   constructor(props) {
@@ -93,7 +93,7 @@ class AddItemForm extends React.Component {
         </form>
         );
     } else {
-      return <SearchedFood searchedFoods={this.state.searchedFood} />;
+      return <AddItemSelect searchedFoods={this.state.searchedFood} houseId={this.props.houseId} submitItem={this.props.submitItem} handleClose={this.props.handleClose} />;
     }
   }
 }
