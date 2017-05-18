@@ -3,12 +3,15 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
-/**
- * Dialog with action buttons. The actions are passed in as an array of React objects,
- * in this example [FlatButtons](/#/components/flat-button).
- *
- * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
- */
+import AddItemForm from './AddItemForm.jsx';
+
+const styles = {
+  width: '80%',
+  margin: '-5% auto 30%',
+  maxWidth: 'none',
+  textAlign: 'center',
+};
+
 class DialogExampleSimple extends React.Component {
   constructor(props) {
     super(props);
@@ -38,25 +41,20 @@ class DialogExampleSimple extends React.Component {
         primary={true}
         onTouchTap={this.handleClose}
       />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleClose}
-      />,
     ];
 
     return (
       <div>
-        <RaisedButton label="Dialog" onTouchTap={this.handleOpen} />
+        <RaisedButton label="Add Item by Search" secondary={true} onTouchTap={this.handleOpen} />
         <Dialog
           title="Dialog With Actions"
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
+          contentStyle={styles}
         >
-          The actions in this window were passed in as an array of React objects.
+          <AddItemForm />
         </Dialog>
       </div>
     );

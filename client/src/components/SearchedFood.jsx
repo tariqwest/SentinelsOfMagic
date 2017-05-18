@@ -12,15 +12,15 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
   propContainer: {
-    width: 200,
+    width: '100%',
     overflow: 'hidden',
-    margin: '20px auto 0',
+    margin: '10px auto 0',
   },
   propToggleHeader: {
-    margin: '20px auto 10px',
+    margin: '10px auto 5px',
   },
   button: {
-    margin: '5%',
+    margin: '2.5%',
   },
 };
 

@@ -1,11 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import { Card, CardText } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 
 import SearchedFood from './SearchedFood.jsx';
 
@@ -78,32 +75,25 @@ class AddItemForm extends React.Component {
   render() {
     if (!this.state.showList) {
       return (
-          <Card className="container">
-            <form>
-              <h4 className="card-heading">Add New Inventory Item</h4>
-              <div className="field-line">
-                <TextField
-                  floatingLabelText="Item Name"
-                  type="text"
-                  value={this.state.name}
-                  onChange={this.saveName.bind(this)}
-                  errorText={this.state.errorName}
-                >
-                </TextField>
-              </div>
-              <div className="button-line">
-                <RaisedButton primary label="Submit" onClick={this.clickSubmit.bind(this)} />
-                <RaisedButton primary label="Cancel" onClick={this.clickCancel.bind(this)} />
-              </div>
-            </form>
-          </Card>
+        <form>
+          <h4 className="card-heading">Add New Inventory Item</h4>
+          <div className="field-line">
+            <TextField
+              floatingLabelText="Item Name"
+              type="text"
+              value={this.state.name}
+              onChange={this.saveName.bind(this)}
+              errorText={this.state.errorName}
+            >
+            </TextField>
+          </div>
+          <div className="button-line">
+            <RaisedButton primary label="Submit" onClick={this.clickSubmit.bind(this)} />
+          </div>
+        </form>
         );
     } else {
-      return (
-          <Card className="container">
-            <SearchedFood searchedFood={this.state.searchedFood} />
-          </Card>
-        );
+      return <SearchedFood searchedFood={this.state.searchedFood} />;
     }
   }
 }
