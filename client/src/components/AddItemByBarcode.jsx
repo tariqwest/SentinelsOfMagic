@@ -7,27 +7,27 @@ class AddItemByBarcode extends React.Component {
     super(props);
 
     this.state = {
-      showForm: false
+      open: false
     };
   }
 
   clickAddItem(event) {
     this.setState({
-      showForm: true
+      open: true
     });
   }
 
   toggleForm(bool) {
     this.setState({
-      showForm: bool
+      open: bool
     });
   }
 
   render() {
-    if (this.state.showForm) {
+    if (this.state.open) {
       return (
         <div>
-          <AddItemByBarcodeForm houseId={this.props.houseId} toggleForm={this.toggleForm.bind(this)} submitItem={this.props.submitItem}/>
+          <AddItemByBarcodeForm houseId={this.props.houseId} toggleForm={this.toggleForm.bind(this)} submitItem={this.props.submitItem} open={this.state.open}/>
         </div>
       );
     } else {

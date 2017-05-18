@@ -3,8 +3,10 @@ import axios from 'axios';
 import { Get, Post } from 'react-axios'
 import { NavLink, Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
+import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import Quagga from 'quagga';
 
@@ -12,6 +14,9 @@ const styles = {
   image: {
     width: 200,
     height: 200
+  },
+  fileinput: {
+    display: 'none'
   }
 }
 
@@ -26,7 +31,8 @@ class AddItemByBarcodeForm extends React.Component {
       errorText: '',
       decodedBarcode: '',
       errorDecodedBarcode: '',
-      product: null
+      product: null,
+      open: props.open
     };
     this.decodeBarcode = this.decodeBarcode.bind(this);
     this.getProductByBarcode = this.getProductByBarcode.bind(this);
@@ -111,59 +117,80 @@ class AddItemByBarcodeForm extends React.Component {
   }
 
   render() {
-    if(this.state.product === 'loading'){
-      return (
-        <CircularProgress size={80} thickness={5} />
-      );
-    }else if(this.state.product !== 'loading' && this.state.product !== null){
-      return (
-        <Card className="container">
-          <img style={styles.image} src={this.state.product.image} />
-          <div>{this.state.product.title}</div>
-          <div>{this.state.product.price}</div>
-          <a href={this.state.product.url}>Order it online</a>
-        </Card>
-      );
-    }else{
-      return (
-        <Card className="container">
-          <form>
-            <h4 className="card-heading">Add Item by UPC</h4>
-            <div className="field-line">
-              <RaisedButton
-                 containerElement='label' // <-- Just add me!
-                 label=''>
-                <input 
-                  type="file"
-                  onChange={this.decodeBarcode}
-                />
-              </RaisedButton>
-            </div>
-            <div className="field-line">
-              <TextField
-                floatingLabelText="UPC Code"
-                type="text"
-                value={this.state.decodedBarcode}
-                errorText={this.state.errorDecodedBarcode}>
-              </TextField>
-            </div>
-            <div className="field-line">
-              <TextField
-                floatingLabelText="Notes"
-                type="text"
-                value={this.state.notes}
-                onChange={this.saveNotes.bind(this)}
-                errorText={this.state.errorNotes}>
-              </TextField>
-            </div>
-            <div className="button-line">
-              <RaisedButton primary={true} label="Submit" onClick={this.clickSubmit.bind(this)}></RaisedButton>
-              <RaisedButton primary={true} label="Cancel" onClick={this.clickCancel.bind(this)}></RaisedButton>
-            </div>
-          </form>
-        </Card>
-      );
+
+    const actions = [
+      <RaisedButton
+        label="Submit"
+        primary={true}
+        onClick={this.clickSubmit.bind(this)}
+      />,
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.clickCancel.bind(this)}
+      />
+    ];
+
+    const dialogBody = ()=> {
+      if(this.state.product === 'loading'){
+        return (
+          <CircularProgress size={80} thickness={5} />
+        );
+      }else if(this.state.product !== 'loading' && this.state.product !== null){
+        return (
+
+            <form>
+              <h4 className="card-heading">Add Item by UPC</h4>
+
+              <img style={styles.image} src={this.state.product.image} />
+              <div>{this.state.product.title}</div>
+              <div>{this.state.product.price}</div>
+              <a href={this.state.product.url}>Order it online</a>
+              <div className="button-line">
+                 
+              </div>
+            </form>
+        );
+      }else{
+        return (
+
+            <form>
+              <h4 className="card-heading">Add Item by UPC</h4>
+              <div className="field-line">
+                <RaisedButton
+                   containerElement='label'
+                   label='Upload Barcode Image'>
+                  <input 
+                    style={styles.fileinput}
+                    type="file"
+                    onChange={this.decodeBarcode}
+                  />
+                </RaisedButton>
+              </div>
+              <div className="field-line">
+                <TextField
+                  floatingLabelText="UPC Code"
+                  type="text"
+                  value={this.state.decodedBarcode}
+                  errorText={this.state.errorDecodedBarcode}>
+                </TextField>
+              </div>
+            </form>
+        );
+      }
     }
+
+    return(
+      <Dialog
+        title="Dialog With Actions"
+        actions={actions}
+        modal={true}
+        open={this.state.open}
+      >
+        {dialogBody()}       
+      </Dialog>
+    )
+
   }
 }
 
