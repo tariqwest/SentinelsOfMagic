@@ -32,7 +32,7 @@ a {
 
 h2, h3, h4, h5, h6 {
   text-transform: uppercase;
-  color: white !important;
+  color: #000000;
 }
 
 svg {
@@ -96,7 +96,7 @@ a:hover {
   padding-bottom: 10px;
   margin: 0 auto;
   text-align: center;
-  width: 700px;
+  width: 1000px;
 }
 
 /*.block {*/
@@ -197,6 +197,15 @@ a:hover {
   -webkit-box-flex: 1;
   -ms-flex: auto;
   flex: auto;
+}
+
+.item_outer h2,
+.item_outer h3,
+.item_outer h4,
+.item_outer h5,
+.item_outer h6 {
+  text-transform: uppercase;
+  color: white;
 }
 
 .item_outer img {

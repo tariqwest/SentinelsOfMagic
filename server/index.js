@@ -1,17 +1,20 @@
 require('dotenv').config()
-var express = require('express');
-var bodyParser = require('body-parser');
-var db = require('../database/index.js');
-var request = require('request');
-var pgp = require('pg-promise')();
-let path = require('path');
-var cookieParser = require('cookie-parser');
-var utils = require('./lib/inventoryUtils.js');
-var assignCookie = require('./middleware/assignCookie');
+const express = require('express');
+const bodyParser = require('body-parser');
+const db = require('../database/index.js');
+const request = require('request');
+const pgp = require('pg-promise')();
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const utils = require('./lib/inventoryUtils.js');
 
-let checkAuth = require('./middleware/authorizedRequest.js');
+const assignCookie = require('./middleware/assignCookie');
+const checkAuth = require('./middleware/authorizedRequest.js');
 
-let app = express();
+// APIs
+const spoon = require('./API/spoonacular.js');
+
+const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,8 +23,8 @@ app.use(assignCookie);
 app.use(express.static(__dirname + '/../client/dist'));
 
 // routes
-let routeHandlers = require('./lib/route-handlers');
-let authRoutes = require('./lib/auth.js');
+const routeHandlers = require('./lib/route-handlers');
+const authRoutes = require('./lib/auth.js');
 app.use('/auth', authRoutes);
 
 app.post('/inventory', (req, res) => {
@@ -210,6 +213,14 @@ app.post('/users', function(req, res) {
       res.send(data);
     })
     .catch(err => console.log('unable to get users', err));
+});
+
+app.get('/spoonacular', (req, res) => {
+  spoon.getFoodItems(req.query.searchFood, res);
+});
+
+app.get('/jokes', (req, res) => {
+  spoon.getJokes(res);
 });
 
 app.post('/add', (req, res) => {

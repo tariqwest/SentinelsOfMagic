@@ -1,6 +1,6 @@
 import React from 'react';
 import AddItemForm from './AddItemForm.jsx';
-import RaisedButton from 'material-ui/RaisedButton';
+import ItemSearchDialog from './ItemSearchDialog.jsx';
 
 class AddItem extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class AddItem extends React.Component {
 
   toggleForm(bool) {
     this.setState({
-      showForm: bool
+      showForm: bool,
     });
   }
 
@@ -33,7 +33,7 @@ class AddItem extends React.Component {
     } else {
       return (
         <div className="add-item">
-          <RaisedButton secondary={true} label="Add item" onClick={this.clickAddItem.bind(this)}></RaisedButton>
+          <ItemSearchDialog  houseId={this.props.houseId} toggleForm={this.toggleForm.bind(this)} submitItem={this.props.submitItem} />
         </div>
       );
     }

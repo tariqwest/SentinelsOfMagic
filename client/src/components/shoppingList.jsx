@@ -21,7 +21,7 @@ class ShoppingList extends React.Component {
     this.state = {
       shoppingListItems: [],
       page: 'shop',
-      selected: []
+      selected: [],
     };
 
     this.handleRowSelection = this.handleRowSelection.bind(this);
@@ -57,7 +57,8 @@ class ShoppingList extends React.Component {
     .then((res) => {
       this.setState({
         shoppingListItems: res.data,
-        selected: []});
+        selected: [],
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -65,10 +66,10 @@ class ShoppingList extends React.Component {
   }
 
   handleRowSelection(selectedRows) {
-
+  console.log(selectedRows);
     if (Array.isArray(selectedRows)) {
       this.setState({
-        selected: selectedRows
+        selected: selectedRows,
       });
     } else if (selectedRows === 'all') {
       this.setState({
@@ -89,8 +90,17 @@ class ShoppingList extends React.Component {
     return (
       <div>
         <Nav page={this.state.page}/>
-        <RaisedButton secondary={this.state.selected.length > 0} disabled={this.state.selected.length === 0} label={'Mark as Purchased'} onTouchTap={this.submitShopping.bind(this)} />
-        <Table multiSelectable={true} enableSelectAll={true} onRowSelection={this.handleRowSelection}>
+        <RaisedButton
+          secondary={this.state.selected.length > 0}
+          disabled={this.state.selected.length === 0}
+          label={'Mark as Purchased'}
+          onTouchTap={this.submitShopping.bind(this)}
+        />
+        <Table
+          multiSelectable={true}
+          enableSelectAll={true}
+          onRowSelection={this.handleRowSelection}
+        >
           <TableHeader>
             <TableRow>
               <TableHeaderColumn>Select All</TableHeaderColumn>
@@ -99,7 +109,10 @@ class ShoppingList extends React.Component {
           <TableBody stripedRows={true}>
             {this.state.shoppingListItems.map((item, index) => {
               return (
-                <TableRow key={index} selected={this.isSelected(index)}>
+                <TableRow
+                  key={index}
+                  selected={this.isSelected(index)}
+                >
                   <TableRowColumn>{item.itemname}</TableRowColumn>
                 </TableRow>
               );

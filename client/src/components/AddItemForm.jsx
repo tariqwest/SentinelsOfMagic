@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import { NavLink, Link } from 'react-router-dom';
-import { Card, CardText } from 'material-ui/Card';
+
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+
+import SearchedFood from './SearchedFood.jsx';
 
 class AddItemForm extends React.Component {
   constructor(props) {
@@ -11,11 +12,27 @@ class AddItemForm extends React.Component {
 
     this.state = {
       name: '',
-      notes: '',
+      notes: null,
       houseId: this.props.houseId,
       errorName: '',
-      errorText: ''
+      errorText: '',
+      searchedFood: [],
+      showList: false,
     };
+  }
+
+  getFoodItems() {
+    axios.get('/spoonacular', { params: { searchFood: this.state.name } })
+    .then(res => {
+      console.log('Successful GET request to /spoonacular', res.data);
+      this.setState({
+        searchedFood: res.data,
+        showList: true,
+      });
+    })
+    .catch(err => {
+      console.log('Bad GET request to /spoonacular: ', err.response);
+    });
   }
 
   postItem(obj) {
@@ -29,34 +46,35 @@ class AddItemForm extends React.Component {
         console.log('Bad POST request to /add: ', err.response.data);
         this.setState({
           errorName: err.response.data.name,
-          errorNotes: err.response.data.notes
+          errorNotes: err.response.data.notes,
         });
       });
   }
 
-  clickSubmit(event) {
-    this.postItem(this.state);
+  clickSubmit() {
+    this.getFoodItems();
+    // this.postItem(this.state);
   }
 
-  clickCancel(event) {
+  clickCancel() {
     this.props.toggleForm(false);
   }
 
   saveName(event) {
     this.setState({
-      name: event.target.value
+      name: event.target.value,
     });
   }
 
   saveNotes(event) {
     this.setState({
-      notes: event.target.value
+      notes: event.target.value,
     });
   }
 
   render() {
-    return (
-      <Card className="container">
+    if (!this.state.showList) {
+      return (
         <form>
           <h4 className="card-heading">Add New Inventory Item</h4>
           <div className="field-line">
@@ -65,25 +83,18 @@ class AddItemForm extends React.Component {
               type="text"
               value={this.state.name}
               onChange={this.saveName.bind(this)}
-              errorText={this.state.errorName}>
-            </TextField>
-          </div>
-          <div className="field-line">
-            <TextField
-              floatingLabelText="Notes"
-              type="text"
-              value={this.state.notes}
-              onChange={this.saveNotes.bind(this)}
-              errorText={this.state.errorNotes}>
+              errorText={this.state.errorName}
+            >
             </TextField>
           </div>
           <div className="button-line">
-            <RaisedButton primary={true} label="Submit" onClick={this.clickSubmit.bind(this)}></RaisedButton>
-            <RaisedButton primary={true} label="Cancel" onClick={this.clickCancel.bind(this)}></RaisedButton>
+            <RaisedButton primary label="Submit" onClick={this.clickSubmit.bind(this)} />
           </div>
         </form>
-      </Card>
-    );
+        );
+    } else {
+      return <SearchedFood searchedFoods={this.state.searchedFood} />;
+    }
   }
 }
 
