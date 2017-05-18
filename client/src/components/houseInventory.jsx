@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import axios from 'axios';
 import HouseInventoryList from './HouseInventoryList.jsx';
 import Nav from './Nav.jsx';
