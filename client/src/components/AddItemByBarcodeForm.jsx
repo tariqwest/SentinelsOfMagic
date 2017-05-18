@@ -3,10 +3,8 @@ import axios from 'axios';
 import { Get, Post } from 'react-axios'
 import { NavLink, Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
-import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import Quagga from 'quagga';
 
@@ -25,14 +23,13 @@ class AddItemByBarcodeForm extends React.Component {
     super(props);
     this.state = {
       name: '',
-      notes: '',
+      notes: 'null',
       houseId: this.props.houseId,
       errorName: '',
       errorText: '',
       decodedBarcode: '',
       errorDecodedBarcode: '',
-      product: null,
-      open: props.open
+      productStatus: null
     };
     this.decodeBarcode = this.decodeBarcode.bind(this);
     this.getProductByBarcode = this.getProductByBarcode.bind(this);
@@ -40,12 +37,12 @@ class AddItemByBarcodeForm extends React.Component {
 
   postItem(obj) {
     axios.post('/add', obj)
-      .then(res => {
+      .then((res) => {
         console.log('Successful POST request to /add');
         this.props.submitItem();
-        this.props.toggleForm(false);
+        this.props.handleClose();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Bad POST request to /add: ', err.response.data);
         this.setState({
           errorName: err.response.data.name,
@@ -56,10 +53,6 @@ class AddItemByBarcodeForm extends React.Component {
 
   clickSubmit(event) {
     this.postItem(this.state);
-  }
-
-  clickCancel(event) {
-    this.props.toggleForm(false);
   }
 
   saveName(event) {
@@ -102,10 +95,15 @@ class AddItemByBarcodeForm extends React.Component {
 
   getProductByBarcode(barcode){
     this.setState({product: 'loading'});
-    axios.post('/api/product', { barcode: barcode })
+    axios.post('/find-product', { barcode: barcode })
     .then(res => {
       console.log(res);
-      this.setState({product: res.data});
+      this.setState({
+        name: res.data.title,
+        price: res.data.price,
+        image: res.data.image,
+        productStatus: 'found' 
+      });
     })
     .catch(err => {
       throw err;
@@ -118,79 +116,55 @@ class AddItemByBarcodeForm extends React.Component {
 
   render() {
 
-    const actions = [
-      <RaisedButton
-        label="Submit"
-        primary={true}
-        onClick={this.clickSubmit.bind(this)}
-      />,
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.clickCancel.bind(this)}
-      />
-    ];
+    const content = ()=>{
+        if(this.state.productStatus === 'loading'){
+          return (
+            <CircularProgress size={80} thickness={5} />
+          );
+        }else if(this.state.productStatus === 'found'){
+          return (
+            <div>
+              <img style={styles.image} src={this.state.image} />
+              <div>{this.state.name}</div>
+              <div>{this.state.price}</div>
+            </div>
+          );
+        }else{
+          return (
+              <div>
+                <div className="field-line">
+                  <RaisedButton
+                     containerElement='label' // <-- Just add me!
+                     label='Upload Image'>
+                    <input 
+                      type="file"
+                      style={styles.fileinput}
+                      onChange={this.decodeBarcode}
+                    />
+                  </RaisedButton>
+                </div>
+                <div className="field-line">
+                  <TextField
+                    floatingLabelText="UPC Code"
+                    type="text"
+                    value={this.state.decodedBarcode}
+                    errorText={this.state.errorDecodedBarcode}>
+                  </TextField>
+                </div>
+                </div>
+          );
+        }
 
-    const dialogBody = ()=> {
-      if(this.state.product === 'loading'){
-        return (
-          <CircularProgress size={80} thickness={5} />
-        );
-      }else if(this.state.product !== 'loading' && this.state.product !== null){
-        return (
-
-            <form>
-              <h4 className="card-heading">Add Item by UPC</h4>
-
-              <img style={styles.image} src={this.state.product.image} />
-              <div>{this.state.product.title}</div>
-              <div>{this.state.product.price}</div>
-              <a href={this.state.product.url}>Order it online</a>
-              <div className="button-line">
-                 
-              </div>
-            </form>
-        );
-      }else{
-        return (
-
-            <form>
-              <h4 className="card-heading">Add Item by UPC</h4>
-              <div className="field-line">
-                <RaisedButton
-                   containerElement='label'
-                   label='Upload Barcode Image'>
-                  <input 
-                    style={styles.fileinput}
-                    type="file"
-                    onChange={this.decodeBarcode}
-                  />
-                </RaisedButton>
-              </div>
-              <div className="field-line">
-                <TextField
-                  floatingLabelText="UPC Code"
-                  type="text"
-                  value={this.state.decodedBarcode}
-                  errorText={this.state.errorDecodedBarcode}>
-                </TextField>
-              </div>
-            </form>
-        );
-      }
     }
 
     return(
-      <Dialog
-        title="Dialog With Actions"
-        actions={actions}
-        modal={true}
-        open={this.state.open}
-      >
-        {dialogBody()}       
-      </Dialog>
-    )
-
+      <form>
+      {content()}
+        <div className="button-line">
+          <RaisedButton primary={true} label="Submit" onClick={this.clickSubmit.bind(this)}></RaisedButton>
+        </div>
+      </form>
+    ) 
   }
 }
 

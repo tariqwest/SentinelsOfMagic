@@ -272,7 +272,7 @@ app.post('/add', (req, res) => {
 app.get('/api/shop', checkAuth.APICall, routeHandlers.getShoppingList);
 app.post('/api/shop', checkAuth.pageRequest, routeHandlers.updateWithPurchases);
 
-app.post('/api/product', (req, res)=>{
+app.post('/find-product', (req, res)=>{
   const clientResponse = {
     title: 'Tyson\'s Cage Raised Miserable Chicken',
     image: 'http://pixel.nymag.com/imgs/daily/grub/2017/02/07/07-tyson-chicken.w1200.h630.jpg',
