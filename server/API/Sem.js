@@ -11,12 +11,14 @@ sem3.products.products_field('upc', '012000161155');
 // 052800488267 - lotion
 // 012000161155 - lifewater
 
+
 sem3.products.get_products(
   (err, res) => {
     if (err) {
       console.log(err);
       return;
     }
+
     res = JSON.parse(res);
     var options = res.results[0].sitedetails; //array of objs
     var currentSite = res.results[0].sitedetails[0].url;
@@ -38,7 +40,7 @@ sem3.products.get_products(
     }
 
     console.log(result)
+    res.json(result)
   }
 );
-
 
