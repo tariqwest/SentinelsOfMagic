@@ -31,8 +31,8 @@ class AddItemForm extends React.Component {
       });
     })
     .catch(err => {
-      console.log('Bad GET request to /spoonacular: ', err.response);
-    });
+      console.log('Bad GET request to /spoonacular', err);
+    })
   }
 
   postItem(obj) {
