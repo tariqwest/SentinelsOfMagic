@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 module.exports = {
-  getFoodItem: (foodString) => {
+  getFoodItems: (foodString) => {
     axios.get('https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food/products/search', {
       params: {
         number: 10,

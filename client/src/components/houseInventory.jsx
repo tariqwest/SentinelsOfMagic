@@ -99,7 +99,7 @@ class HouseInventory extends React.Component {
         <Nav page={this.state.page}/>
         <h2>{this.state.housename}</h2>
         <h1>😇</h1>
-        <h4>Welcome {this.state.username}</h4>
+        <h2>Welcome {this.state.username}</h2>
         <AddItem houseId={this.state.houseId} submitItem={this.submitItem.bind(this)}/>
         <AddItemByBarcode houseId={this.state.houseId} submitItem={this.submitItem.bind(this)}/>
         <HouseInventoryList items={this.state.items} userId={this.state.userId} submitItem={this.submitItem.bind(this)}/>

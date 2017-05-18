@@ -27,8 +27,6 @@ const routeHandlers = require('./lib/route-handlers');
 const authRoutes = require('./lib/auth.js');
 app.use('/auth', authRoutes);
 
-// spoon.getFoodItem();
-
 app.post('/inventory', (req, res) => {
   db.query('SELECT houses_items.id AS id, houses_items.need_to_restock AS needToRestock, houses_items.notes AS notes, users.username AS username, users.id AS userid, items.itemname AS name FROM houses_items LEFT JOIN users ON houses_items.user_id = users.id LEFT JOIN items ON houses_items.item_id = items.id WHERE houses_items.house_id = ${houseId#};',
     { houseId: req.body.houseId })
@@ -215,6 +213,12 @@ app.post('/users', function(req, res) {
       res.send(data);
     })
     .catch(err => console.log('unable to get users', err));
+});
+
+app.get('/spoonacular', (req, res) => {
+  console.log(req.body.searchInput);
+  // spoon.getFoodItems();
+  res.send(200);
 });
 
 app.post('/add', (req, res) => {

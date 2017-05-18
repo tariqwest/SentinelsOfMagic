@@ -18,6 +18,16 @@ class AddItemForm extends React.Component {
     };
   }
 
+  getFoodItems(foodItem) {
+    axios.get('/spoonacular', { searchInput: foodItem })
+    .then(res => {
+      console.log('Successful POST request to /spoonacular');
+    })
+    .catch(err => {
+      console.log('Bad POST request to /spoonacular: ', err.response.data);
+    });
+  }
+
   postItem(obj) {
     axios.post('/add', obj)
       .then(res => {
@@ -34,11 +44,12 @@ class AddItemForm extends React.Component {
       });
   }
 
-  clickSubmit(event) {
-    this.postItem(this.state);
+  clickSubmit() {
+    this.getFoodItems(this.state.name);
+    // this.postItem(this.state);
   }
 
-  clickCancel(event) {
+  clickCancel() {
     this.props.toggleForm(false);
   }
 
