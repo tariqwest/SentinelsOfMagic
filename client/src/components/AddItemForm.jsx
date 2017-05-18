@@ -93,7 +93,7 @@ class AddItemForm extends React.Component {
         </form>
         );
     } else {
-      return <SearchedFood searchedFood={this.state.searchedFood} />;
+      return <SearchedFood searchedFoods={this.state.searchedFood} />;
     }
   }
 }

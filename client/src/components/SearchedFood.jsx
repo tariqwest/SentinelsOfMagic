@@ -24,9 +24,6 @@ const styles = {
   },
 };
 
-/**
- * A more complex example, allowing the table height to be set, and key boolean properties to be toggled.
- */
 class SearchedFood extends Component {
 
   constructor(props) {
@@ -42,22 +39,43 @@ class SearchedFood extends Component {
       deselectOnClickaway: true,
       showCheckboxes: true,
       height: '300px',
-      searchedFood: [],
+      searchedFoods: this.props.searchedFoods,
+      selected: [],
+      index: 0,
     };
-    this.getSelectedFood = this.getSelectedFood.bind(this);
-  }
-
-  getSelectedFood(index) {
-    console.log(this.state.searchedFood[index]);
+    this.handleRowSelection = this.handleRowSelection.bind(this);
+    this.handleItemSelection = this.handleItemSelection.bind(this);
+    this.isSelected = this.isSelected.bind(this);
+    this.handleIndex = this.handleIndex.bind(this);
   }
 
   handleRowSelection(selectedRow) {
+    console.log(this.state.searchedFoods);
     console.log(selectedRow);
-    this.getSelectedFood(selectedRow);
+    this.setState({
+      selected: selectedRow,
+    });
+  }
+
+  handleIndex(index) {
+    console.log('Index', index);
+    this.setState({
+      index: index,
+    });
+  }
+
+  handleItemSelection(item, index) {
+    console.log('I WAS CLICKED')
+   console.log(item);
+    console.log(index);
+  }
+
+  isSelected(index) {
+    // Kind of ugly but not problematic at any reasonable number of selections
+    return this.state.selected.includes(index);
   }
 
   render() {
-    console.log(this.props.searchedFood);
     return (
       <div>
         <Table
@@ -85,10 +103,13 @@ class SearchedFood extends Component {
             showRowHover={this.state.showRowHover}
             stripedRows={this.state.stripedRows}
           >
-            {this.props.searchedFood.map((row, index) => (
-              <TableRow key={index}>
+            {this.props.searchedFoods.map((row, index) => (
+              <TableRow
+                key={index}
+                onClick={this.handleIndex.bind(this, index)}
+              >
                 <TableRowColumn>{index}</TableRowColumn>
-                <TableRowColumn>{row.title}</TableRowColumn>
+                <TableRowColumn><h4>{row.title}</h4></TableRowColumn>
                 <TableRowColumn><img src={row.image} alt="food" /></TableRowColumn>
               </TableRow>
             ))}
@@ -98,7 +119,12 @@ class SearchedFood extends Component {
           >
             <TableRow>
               <TableRowColumn colSpan="2" style={{ textAlign: 'center' }}>
-                <RaisedButton label="Add Item" primary style={styles.button} />
+                <RaisedButton
+                  label="Add Item"
+                  primary
+                  style={styles.button}
+                  onClick={this.handleItemSelection.bind(this, this.props.searchedFoods, this.state.selected)}
+                />
               </TableRowColumn>
             </TableRow>
           </TableFooter>
