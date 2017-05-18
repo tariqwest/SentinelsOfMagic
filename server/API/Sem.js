@@ -4,10 +4,10 @@ var secret = process.env.SEM3_SECRET;
 var sem3 = require('semantics3-node')(key, secret);
 
 module.exports = {
-  setUpc = (upcCode) => {
+  setUpc: (upcCode) => {
       sem3.products.products_field('upc', upcCode); // set up UPC
       // 786162338006 - Smart Water
-      // 181493000910 - shakerbottle
+      // ç - shakerbottle
       // 323900038462 - Nyquil
       // 052800488267 - lotion
       // 012000161155 - lifewater
@@ -39,10 +39,9 @@ module.exports = {
         price: res.results[0].price,
         site: currentSite,
       }
-
       console.log(result)
-
-      // res.json(result)
+      return result;
+      
     })
 
   }

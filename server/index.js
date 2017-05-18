@@ -12,6 +12,7 @@ const assignCookie = require('./middleware/assignCookie');
 const checkAuth = require('./middleware/authorizedRequest.js');
 
 // APIs
+const upc = require('./API/Sem.js')
 const spoon = require('./API/spoonacular.js');
 
 const app = express();
@@ -290,3 +291,12 @@ app.get('*', function(req, res) {
 app.listen(process.env.PORT || 1337, function() {
   console.log('Listening on 1337...');
 });
+
+app.post('/add/UPC', (req,res) => {
+  var barcode = req.body.decodedBarcode;
+  var result = upc.setUpc(barcode);
+
+  console.log(result)
+  
+  
+})
