@@ -1,8 +1,8 @@
 import React from 'react';
-import AddItemForm from './AddItemForm.jsx';
+import AddItemByBarcodeForm from './AddItemByBarcodeForm.jsx';
 import RaisedButton from 'material-ui/RaisedButton';
 
-class AddItem extends React.Component {
+class AddItemByBarcode extends React.Component {
   constructor(props) {
     super(props);
 
@@ -27,17 +27,17 @@ class AddItem extends React.Component {
     if (this.state.showForm) {
       return (
         <div>
-          <AddItemForm houseId={this.props.houseId} toggleForm={this.toggleForm.bind(this)} submitItem={this.props.submitItem}/>
+          <AddItemByBarcodeForm houseId={this.props.houseId} toggleForm={this.toggleForm.bind(this)} submitItem={this.props.submitItem}/>
         </div>
       );
     } else {
       return (
         <div className="add-item">
-          <RaisedButton secondary={true} label="Add item" onClick={this.clickAddItem.bind(this)}></RaisedButton>
+          <RaisedButton secondary={true} label="Add item by barcode" onClick={this.clickAddItem.bind(this)}></RaisedButton>
         </div>
       );
     }
   }
 }
 
-export default AddItem;
+export default AddItemByBarcode;
