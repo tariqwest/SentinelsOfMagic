@@ -216,9 +216,11 @@ app.post('/users', function(req, res) {
 });
 
 app.get('/spoonacular', (req, res) => {
-  console.log(req.body.searchInput);
-  // spoon.getFoodItems();
-  res.send(200);
+  spoon.getFoodItems(req.query.searchFood, res);
+});
+
+app.get('/jokes', (req, res) => {
+  spoon.getJokes(res);
 });
 
 app.post('/add', (req, res) => {

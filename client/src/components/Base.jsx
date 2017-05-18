@@ -3,14 +3,28 @@ import { NavLink, Link } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import axios from 'axios';
 
 class Base extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      open: false
+      open: false,
+      joke: '',
     };
+  }
+
+  componentDidMount() {
+    axios.get('/jokes')
+    .then(res => {
+      this.setState({
+        joke: res.data.text,
+      })
+    })
+    .catch(err => {
+      throw err;
+    })
   }
 
   handleToggle(event) {
@@ -28,7 +42,7 @@ class Base extends React.Component {
           <AppBar
             className="title"
             onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
-            title={<NavLink exact to="/" >Fridgr</NavLink>}
+            title={<NavLink exact to="/" >{this.state.joke}</NavLink>}
           />
             <Drawer
               docked={false}

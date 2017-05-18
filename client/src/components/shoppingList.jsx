@@ -57,7 +57,8 @@ class ShoppingList extends React.Component {
     .then((res) => {
       this.setState({
         shoppingListItems: res.data,
-        selected: []});
+        selected: [],
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -65,7 +66,7 @@ class ShoppingList extends React.Component {
   }
 
   handleRowSelection(selectedRows) {
-
+  console.log(selectedRows);
     if (Array.isArray(selectedRows)) {
       this.setState({
         selected: selectedRows

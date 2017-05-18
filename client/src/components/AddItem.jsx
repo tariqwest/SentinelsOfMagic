@@ -1,5 +1,7 @@
 import React from 'react';
 import AddItemForm from './AddItemForm.jsx';
+import DialogExampleSimple from './DialogExampleSimple.jsx';
+
 import RaisedButton from 'material-ui/RaisedButton';
 
 class AddItem extends React.Component {
@@ -33,7 +35,8 @@ class AddItem extends React.Component {
     } else {
       return (
         <div className="add-item">
-          <RaisedButton secondary={true} label="Add item" onClick={this.clickAddItem.bind(this)}></RaisedButton>
+          <DialogExampleSimple />
+          <RaisedButton secondary={true} label="Add item by Search" onClick={this.clickAddItem.bind(this)}></RaisedButton>
         </div>
       );
     }
