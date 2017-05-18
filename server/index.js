@@ -1,17 +1,20 @@
 require('dotenv').config()
-var express = require('express');
-var bodyParser = require('body-parser');
-var db = require('../database/index.js');
-var request = require('request');
-var pgp = require('pg-promise')();
-let path = require('path');
-var cookieParser = require('cookie-parser');
-var utils = require('./lib/inventoryUtils.js');
-var assignCookie = require('./middleware/assignCookie');
+const express = require('express');
+const bodyParser = require('body-parser');
+const db = require('../database/index.js');
+const request = require('request');
+const pgp = require('pg-promise')();
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const utils = require('./lib/inventoryUtils.js');
 
-let checkAuth = require('./middleware/authorizedRequest.js');
+const assignCookie = require('./middleware/assignCookie');
+const checkAuth = require('./middleware/authorizedRequest.js');
 
-let app = express();
+// APIs
+const spoon = require('./API/spoonacular.js');
+
+const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,9 +23,11 @@ app.use(assignCookie);
 app.use(express.static(__dirname + '/../client/dist'));
 
 // routes
-let routeHandlers = require('./lib/route-handlers');
-let authRoutes = require('./lib/auth.js');
+const routeHandlers = require('./lib/route-handlers');
+const authRoutes = require('./lib/auth.js');
 app.use('/auth', authRoutes);
+
+// spoon.getFoodItem();
 
 app.post('/inventory', (req, res) => {
   db.query('SELECT houses_items.id AS id, houses_items.need_to_restock AS needToRestock, houses_items.notes AS notes, users.username AS username, users.id AS userid, items.itemname AS name FROM houses_items LEFT JOIN users ON houses_items.user_id = users.id LEFT JOIN items ON houses_items.item_id = items.id WHERE houses_items.house_id = ${houseId#};',
