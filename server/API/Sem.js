@@ -19,9 +19,12 @@ module.exports = {
             console.log(err);
             return;
           }
-
+      
       response = JSON.parse(response);
-      var options = response.results[0].sitedetails; //array of objs
+      if (response.results_count === 0){
+        callback.end('NO RESULTS')
+      } else {
+        var options = response.results[0].sitedetails; //array of objs
       var currentSite = response.results[0].sitedetails[0].url;
       var currentPrice = response.results[0].price;
 
@@ -39,8 +42,10 @@ module.exports = {
         price: response.results[0].price,
         site: currentSite,
       }
-    
+      
       callback.json(result)
+      }
+      
       
     })
 

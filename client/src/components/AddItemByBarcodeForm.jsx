@@ -99,12 +99,18 @@ class AddItemByBarcodeForm extends React.Component {
     axios.post('/find-product', { barcode: barcode })
     .then(res => {
       console.log(res);
-      this.setState({
+      if (res.data === 'NO RESULTS'){
+        // error handling for no UPC results
+        console.log('NO RESULTS')
+      } else {
+        this.setState({
         name: res.data.title,
         price: res.data.price,
         image: res.data.image,
         productStatus: 'found' 
-      });
+      })
+      }
+      ;
     })
     .catch(err => {
       throw err;
