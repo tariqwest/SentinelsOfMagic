@@ -52,7 +52,7 @@ class ShoppingList extends React.Component {
     });
 
     axios.post('/api/shop', {
-      data: submissionItems
+      data: submissionItems,
     })
     .then((res) => {
       this.setState({

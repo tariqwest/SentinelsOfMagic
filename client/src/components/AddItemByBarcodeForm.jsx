@@ -31,7 +31,7 @@ class AddItemByBarcodeForm extends React.Component {
       errorText: '',
       decodedBarcode: '',
       errorDecodedBarcode: '',
-      productStatus: null
+      productStatus: null,
     };
     this.decodeBarcode = this.decodeBarcode.bind(this);
     this.getProductByBarcode = this.getProductByBarcode.bind(this);
@@ -110,7 +110,7 @@ class AddItemByBarcodeForm extends React.Component {
         price: res.data.price,
         image: res.data.image,
         url: res.data.url,
-        productStatus: 'found' 
+        productStatus: 'found'
       })
       }
       ;
@@ -141,27 +141,27 @@ class AddItemByBarcodeForm extends React.Component {
           );
         }else{
           return (
-              <div>
-                <div className="field-line">
-                  <RaisedButton
-                     containerElement='label' // <-- Just add me!
-                     label='Upload Image'>
-                    <input 
-                      type="file"
-                      style={styles.fileinput}
-                      onChange={this.decodeBarcode}
-                    />
-                  </RaisedButton>
-                </div>
-                <div className="field-line">
-                  <TextField
-                    floatingLabelText="UPC Code"
-                    type="text"
-                    value={this.state.decodedBarcode}
-                    errorText={this.state.errorDecodedBarcode}>
-                  </TextField>
-                </div>
-                </div>
+            <div>
+              <div className="field-line">
+                <RaisedButton
+                   containerElement='label' // <-- Just add me!
+                   label='Upload Image'>
+                  <input
+                    type="file"
+                    style={styles.fileinput}
+                    onChange={this.decodeBarcode}
+                  />
+                </RaisedButton>
+              </div>
+              <div className="field-line">
+                <TextField
+                  floatingLabelText="UPC Code"
+                  type="text"
+                  value={this.state.decodedBarcode}
+                  errorText={this.state.errorDecodedBarcode}
+                />
+              </div>
+            </div>
           );
         }
 
@@ -174,7 +174,7 @@ class AddItemByBarcodeForm extends React.Component {
           <RaisedButton primary={true} label="Submit" onClick={this.clickSubmit.bind(this)}></RaisedButton>
         </div>
       </form>
-    ) 
+    )
   }
 }
 
