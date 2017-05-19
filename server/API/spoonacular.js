@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios');
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
         offset: 0,
         query: foodString,
       },
-      headers: { 'X-Mashape-Key': 'O6RCwy9tVvmshDcUvPVYufROm1DZp16qheXjsnseE4hVZ3ZAaC', 'Accept': 'application/json' },
+      headers: { 'X-Mashape-Key': process.env.SPOON_KEY, 'Accept': 'application/json' },
     })
     .then(result => {
       console.log('GOT SOMETHING', result.data);
