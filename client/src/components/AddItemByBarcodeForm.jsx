@@ -133,7 +133,7 @@ class AddItemByBarcodeForm extends React.Component {
       if(this.state.productStatus === 'not-found'){
         error = 'Sorry, wecouldn\'t find a product matching your barcode.'
       }else if(this.state.decodeBarcodeStatus === 'not-detected'){
-        error = 'Sorry, we couldn\'t detect a barcode in this photo. Please try another photo, or add this item manually.'
+        error = 'Sorry, we couldn\'t detect a barcode in this photo.'
       }
       return error;
     }
@@ -152,29 +152,6 @@ class AddItemByBarcodeForm extends React.Component {
           );
         }else{
           return (
-<<<<<<< HEAD
-            <div>
-              <div className="field-line">
-                <RaisedButton
-                   containerElement='label' // <-- Just add me!
-                   label='Upload Image'>
-                  <input
-                    type="file"
-                    style={styles.fileinput}
-                    onChange={this.decodeBarcode}
-                  />
-                </RaisedButton>
-              </div>
-              <div className="field-line">
-                <TextField
-                  floatingLabelText="UPC Code"
-                  type="text"
-                  value={this.state.decodedBarcode}
-                  errorText={this.state.errorDecodedBarcode}
-                />
-              </div>
-            </div>
-=======
               <div>
                 <div>{error()}</div>
                 <div className="field-line">
@@ -198,7 +175,6 @@ class AddItemByBarcodeForm extends React.Component {
                   </TextField>
                 </div>
                 </div>
->>>>>>> Implement error states & manual upc input
           );
         }
 
@@ -208,7 +184,7 @@ class AddItemByBarcodeForm extends React.Component {
       <form>
       {content()}
         <div className="button-line">
-          <RaisedButton primary={true} label="Submit" onClick={this.clickSubmit.bind(this)}></RaisedButton>
+          <RaisedButton primary={true} label="Add Item" onClick={this.clickSubmit.bind(this)}></RaisedButton>
         </div>
       </form>
     )
