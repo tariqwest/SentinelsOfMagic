@@ -29,7 +29,7 @@ const authRoutes = require('./lib/auth.js');
 app.use('/auth', authRoutes);
 
 app.post('/inventory', (req, res) => {
-  db.query('SELECT houses_items.id AS id, houses_items.need_to_restock AS needToRestock, houses_items.notes AS notes, users.username AS username, users.id AS userid, items.itemname AS name FROM houses_items LEFT JOIN users ON houses_items.user_id = users.id LEFT JOIN items ON houses_items.item_id = items.id WHERE houses_items.house_id = ${houseId#};',
+  db.query('SELECT houses_items.id AS id, houses_items.need_to_restock AS needToRestock, houses_items.image AS image, houses_items.price AS price, houses_items.url AS url, users.username AS username, users.id AS userid, items.itemname AS name FROM houses_items LEFT JOIN users ON houses_items.user_id = users.id LEFT JOIN items ON houses_items.item_id = items.id WHERE houses_items.house_id = ${houseId#};',
     { houseId: req.body.houseId })
     .then(data => {
       console.log(`Successful HOUSES_ITEMS table query for houseId = ${req.body.houseId}`);
@@ -239,13 +239,14 @@ app.post('/add', (req, res) => {
     .then(body => {
       console.log(`Successful query of ITEMS table for ${req.body.name}`);
       if (body.length > 0) {
-        db.query('INSERT INTO houses_items (house_id, item_id, need_to_restock, notes) VALUES (${houseId#}, ${itemId#}, ${needToRestock^}, ${notes})',
-          { houseId: req.body.houseId, itemId: body[0].id, needToRestock: false, notes: req.body.notes })
+        db.query('INSERT INTO houses_items (house_id, item_id, need_to_restock, image, price, url) VALUES (${houseId#}, ${itemId#}, ${needToRestock^}, ${image}, ${price}, ${url})',
+          {  houseId: req.body.houseId, itemId: body[0].id, needToRestock: false, image: req.body.image, price: req.body.price, url: req.body.url })
           .then(() => {
-            console.log(`Successful insert into HOUSES_ITEMS table: {houseId: ${req.body.houseId}, itemId: ${body[0].id}, needToRestock: false, notes: ${req.body.notes}}`);
+            console.log(`Successful insert into HOUSES_ITEMS table:{ houseId: ${req.body.houseId}, itemId: ${body[0].id}, needToRestock: false, image: ${req.body.image}, price: ${req.body.price}, url: ${req.body.url} })
+`);
             res.sendStatus(201);
           })
-          .catch(err => console.log(`Unable to add item to HOUSES_ITEMS table: {houseId: ${req.body.houseId}, itemId: ${body[0].id}, needToRestock: false, notes: ${req.body.notes}} `, err));
+          .catch(err => console.log(`Unable to add item to HOUSES_ITEMS table: {houseId: ${req.body.houseId}, itemId: ${body[0].id}, needToRestock: false, image: ${req.body.image}, price: ${req.body.price}, url: ${req.body.url} } `, err));
         return;
       }
       db.query('INSERT INTO items (itemname) VALUES (${name})', { name: req.body.name })
@@ -254,13 +255,13 @@ app.post('/add', (req, res) => {
           db.query('SELECT id FROM items WHERE itemname = ${name}', { name: req.body.name })
           .then(body => {
             console.log(`Successful retrieve of item id = ${body[0].id} for itemname = ${req.body.name} from ITEMS`);
-            db.query('INSERT INTO houses_items (house_id, item_id, need_to_restock, notes) VALUES (${houseId#}, ${itemId#}, ${needToRestock^}, ${notes})',
-              { houseId: req.body.houseId, itemId: body[0].id, needToRestock: false, notes: req.body.notes })
+            db.query('INSERT INTO houses_items (house_id, item_id, need_to_restock, image, price, url) VALUES (${houseId#}, ${itemId#}, ${needToRestock^}, ${image}, ${price}, ${url})',
+              { houseId: req.body.houseId, itemId: body[0].id, needToRestock: false, image: req.body.image, price: req.body.price, url: req.body.url })
               .then(() => {
-                console.log(`Successful insert into HOUSES_ITEMS: {houseId: ${req.body.houseId}, itemId: ${body[0].id}, needToRestock: false, notes: ${req.body.notes}}`);
+                console.log(`Successful insert into HOUSES_ITEMS: {houseId: ${req.body.houseId}, itemId: ${body[0].id}, needToRestock: false, image: ${req.body.image}, price: ${req.body.price}, url: ${req.body.url}}`);
                 res.sendStatus(201);
               })
-              .catch(err => console.log(`Unable to add to HOUSES_ITEMS table: {houseId: ${req.body.houseId}, itemId: ${body[0].id}, needToRestock: false, notes: ${req.body.notes}} `, err));
+              .catch(err => console.log(`Unable to add to HOUSES_ITEMS table: {houseId: ${req.body.houseId}, itemId: ${body[0].id}, needToRestock: false, image: ${req.body.image}, price: ${req.body.price}, url: ${req.body.url}}} `, err));
           })
           .catch(err => console.log(`Error retrieving the item id = ${body[0].id} for itemname = ${req.body.name} from ITEMS: `, err));
         })
