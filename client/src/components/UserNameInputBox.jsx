@@ -13,7 +13,6 @@ class UserNameInputBox extends React.Component {
 
     this.change = this.change.bind(this);
     this.passDataToCreateUser = this.passDataToCreateUser.bind(this);
-
   }
 
   change(e) {

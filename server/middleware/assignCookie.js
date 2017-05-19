@@ -15,11 +15,11 @@ let assignCookie = (req, res, next) => {
       // create a new session entry with hash
       var hashString = hash.toString('hex');
       var sessionQuery = 'INSERT INTO sessions (hash) VALUES (${hashString}) RETURNING id';
-      db.query(sessionQuery, {hashString: hashString})
+      db.query(sessionQuery, { hashString })
       .then((sessionData) => {
         console.log('New session created:', sessionData);
 
-        res.cookie('fridgrSesh', {id: sessionData[0].id, hash: hashString});
+        res.cookie('fridgrSesh', { id: sessionData[0].id, hash: hashString });
         next();
       })
       .catch((err) => {

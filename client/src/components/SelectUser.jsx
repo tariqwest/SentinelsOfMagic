@@ -3,7 +3,7 @@ import $ from 'jquery';
 import Users from './Users.jsx';
 import { Redirect } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
-import {parse} from 'cookie';
+import { parse } from 'cookie';
 
 class SelectUser extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class SelectUser extends React.Component {
 
     this.state = {
       data: [],
-      houseId: houseId,
+      houseId,
       userId: 0,
       redirect: false,
       to: '/inventory',
@@ -48,7 +48,7 @@ class SelectUser extends React.Component {
       data: { houseId: this.state.houseId },
       success: (data) => {
         this.setState({
-          data: data,
+          data,
           usersCount: data.length,
         });
       },
@@ -81,7 +81,7 @@ class SelectUser extends React.Component {
   render() {
     return (
       <div>
-      {this.state.redirectTwo ? <Redirect to={this.state.toTwo}/> :
+      {this.state.redirectTwo ? <Redirect to={this.state.toTwo} /> :
         <div className="item">
           <div className="selectUserTwo selectUserThree">
             <RaisedButton className="title" secondary onTouchTap={this.showCreateUser} label="Create User" />

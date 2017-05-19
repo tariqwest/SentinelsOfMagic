@@ -7,7 +7,7 @@ const hashUtils = require('./hashUtils.js');
 // request
 // - returns an object that contains success (bool), message (string), and errors (object that
 // contains error strings, which are displayed on the form)
-var validateSignupForm = function(payload) {
+var validateSignupForm = function (payload) {
   const errors = {};
   let isFormValid = true;
   let message = '';
@@ -32,12 +32,12 @@ var validateSignupForm = function(payload) {
   return {
     success: isFormValid,
     message,
-    errors
+    errors,
   };
 };
 
 // same as signup form
-var validateLoginForm = function(payload) {
+var validateLoginForm = function (payload) {
   const errors = {};
   let isFormValid = true;
   let message = '';
@@ -59,7 +59,7 @@ var validateLoginForm = function(payload) {
   return {
     success: isFormValid,
     message,
-    errors
+    errors,
   };
 };
 
@@ -69,13 +69,12 @@ router.post('/signup', (req, res, next) => {
     return res.status(400).json({
       success: false,
       message: validationResult.message,
-      errors: validationResult.errors
+      errors: validationResult.errors,
     });
   } else {
-
     // check if house name has already been taken
     var sql = 'SELECT * FROM houses WHERE housename = \'${houseName#}\'';
-    db.query(sql, {houseName: req.body.houseName})
+    db.query(sql, { houseName: req.body.houseName })
     .then((houseData) => {
       console.log('House data retrieved:', houseData);
 
@@ -83,11 +82,11 @@ router.post('/signup', (req, res, next) => {
       if (houseData.length > 0) {
         return res.status(400).json({
           success: false,
-          message: 'House name already taken.'
+          message: 'House name already taken.',
         });
       }
 
-      //generate salt and hash
+      // generate salt and hash
       hashUtils.salt(32, (err, salt) => {
         if (err) {
           console.error(err);
@@ -111,9 +110,8 @@ router.post('/signup', (req, res, next) => {
       // return res with a 'signup successful' message
       return res.status(200).json({
         success: true,
-        message: 'Sign up successful! Please log in with your new account.'
+        message: 'Sign up successful! Please log in with your new account.',
       });
-
     })
     .catch((err) => {
       console.log('Error retrieving house data:', err);
@@ -127,12 +125,12 @@ router.post('/login', (req, res, next) => {
     return res.status(400).json({
       success: false,
       message: validationResult.message,
-      errors: validationResult.errors
+      errors: validationResult.errors,
     });
   } else {
     // get house, password, and salt from database using houseName
     var houseQuery = 'SELECT * FROM houses WHERE housename = ${houseName}';
-    db.one(houseQuery, {houseName: req.body.houseName})
+    db.one(houseQuery, { houseName: req.body.houseName })
     .then((houseData) => {
       console.log('House data retrieved:', houseData);
 
@@ -145,14 +143,14 @@ router.post('/login', (req, res, next) => {
 
         // check if a user exists
         var userQuery = 'SELECT * FROM users WHERE house_id=${houseId#}';
-        db.query(userQuery, {houseId: houseData.id})
+        db.query(userQuery, { houseId: houseData.id })
         .then((usersData) => {
           console.log('Users retrieved:', usersData);
 
           // update session with houseId
           var currentSeshId = req.cookies.fridgrSesh.id;
           var sessionQuery = 'UPDATE sessions SET house_id = ${houseId#} WHERE id = ${sessionId#}';
-          db.query(sessionQuery, {houseId: houseData.id, sessionId: currentSeshId})
+          db.query(sessionQuery, { houseId: houseData.id, sessionId: currentSeshId })
           .then((sessionData) => {
             console.log('Session updated with houseId:', sessionData);
 
@@ -174,7 +172,7 @@ router.post('/login', (req, res, next) => {
         // if no match, return error
         return res.status(401).json({
           success: false,
-          message: 'Incorrect house name or password.'
+          message: 'Incorrect house name or password.',
         });
       }
     })
@@ -185,7 +183,7 @@ router.post('/login', (req, res, next) => {
       if (err.code === 0) {
         return res.status(400).json({
           success: false,
-          message: 'Incorrect house name or password.'
+          message: 'Incorrect house name or password.',
         });
       }
     });
@@ -204,13 +202,13 @@ router.post('/logout', (req, res, next) => {
 
   // clear out houseId and userId from session
   var sessionQuery = 'UPDATE sessions SET house_id = NULL, user_id = NULL WHERE id = ${sessionId#}';
-  db.query(sessionQuery, {sessionId: currentSeshId})
+  db.query(sessionQuery, { sessionId: currentSeshId })
   .then((sessionData) => {
     console.log('Credentials removed from session:', sessionData);
 
     return res.status(200).json({
       success: true,
-      message: 'Logout successful!'
+      message: 'Logout successful!',
     });
   })
   .catch((err) => {
