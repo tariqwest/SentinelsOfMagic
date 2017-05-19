@@ -29,9 +29,7 @@ let getShoppingListForUser = (userId, houseId) => {
 };
 
 let updateWithPurchases = (userId, houseId, updateList) => {
-
   return db.tx((transaction) => {
-
     let queries = [];
 
     let publicItems = updateList.filter((item) => {
@@ -43,7 +41,6 @@ let updateWithPurchases = (userId, houseId, updateList) => {
     });
 
     if (publicItems.length > 0) {
-
       queries.push(transaction.none(`
         UPDATE houses_items
         SET need_to_restock = false, user_id = NULL
@@ -55,7 +52,6 @@ let updateWithPurchases = (userId, houseId, updateList) => {
     }
 
     if (privateItems.length > 0) {
-
       queries.push(transaction.none(`
           UPDATE private_items
           SET need_to_restock = false

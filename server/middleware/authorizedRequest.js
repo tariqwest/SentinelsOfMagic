@@ -15,11 +15,9 @@ let authPageRequest = (req, res, next) => {
       res.redirect(401, '/login');
     }
   });
-
 };
 
 let authAPICall = (req, res, next) => {
-
   session.getSession(req.cookies.fridgrSesh.id)
   .then((session) => {
     if (session.hash === req.cookies.fridgrSesh.hash &&
@@ -30,10 +28,9 @@ let authAPICall = (req, res, next) => {
       res.clearCookie('fridgrSesh');
       res.clearCookie('houseId');
       res.clearCookie('userId');
-      res.send({error: 'unauthorized'});
+      res.send({ error: 'unauthorized' });
     }
   });
-
 };
 
 module.exports.pageRequest = authPageRequest;

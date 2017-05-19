@@ -13,9 +13,9 @@ class SignUpPage extends React.Component {
       errors: {},
       user: {
         houseName: '',
-        password: ''
+        password: '',
       },
-      signedUp: false
+      signedUp: false,
     };
 
     this.processForm = this.processForm.bind(this);
@@ -29,7 +29,7 @@ class SignUpPage extends React.Component {
     user[field] = event.target.value;
 
     this.setState({
-      user
+      user,
     });
   }
 
@@ -39,12 +39,11 @@ class SignUpPage extends React.Component {
 
     const houseName = this.state.user.houseName;
     const password = this.state.user.password;
-
-    var context = this;
+    const context = this;
 
     axios.post('/auth/signup', {
-      houseName: houseName,
-      password: password
+      houseName,
+      password,
     })
     .then((response) => {
       console.log('Signup form is valid');
@@ -53,15 +52,14 @@ class SignUpPage extends React.Component {
       // redirect to LoginPage (with success message)
       context.setState({
         errors: {},
-        signedUp: true
+        signedUp: true,
       });
     })
     .catch((err) => {
-      var errors = err.response.data.errors ? err.response.data.errors : {};
+      const errors = err.response.data.errors ? err.response.data.errors : {};
       errors.summary = err.response.data.message;
-
       context.setState({
-        errors: errors
+        errors,
       });
     });
   }
@@ -70,7 +68,7 @@ class SignUpPage extends React.Component {
     return (
       <div>
         {this.state.signedUp ?
-          <Redirect to='/login' /> :
+          <Redirect to="/login" /> :
           <SignUpForm
             onSubmit={this.processForm}
             onChange={this.changeUser}

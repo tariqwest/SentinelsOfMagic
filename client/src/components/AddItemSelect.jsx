@@ -39,7 +39,7 @@ class AddItemSelect extends Component {
 
   postItem(obj) {
     axios.post('/add', obj)
-    .then(res => {
+    .then(() => {
       console.log('Successful POST request to /add');
       this.props.submitItem();
       this.props.handleClose();
@@ -79,7 +79,7 @@ class AddItemSelect extends Component {
               titleBackground="linear-gradient(to top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.75) 70%,rgba(0,0,0,0.7) 100%)"
               onClick={() => this.handleSelection(index)}
             >
-              <img src={item.image} />
+              <img src={item.image} alt="food" />
             </GridTile>
           ))}
         </GridList>

@@ -10,8 +10,7 @@ import {
   TableHeader,
   TableHeaderColumn,
   TableRow,
-  TableRowColumn} from 'material-ui/Table';
-
+  TableRowColumn } from 'material-ui/Table';
 
 
 class ShoppingList extends React.Component {
@@ -37,7 +36,7 @@ class ShoppingList extends React.Component {
           console.log(res.data.error);
         } else {
           this.setState({
-            shoppingListItems: res.data});
+            shoppingListItems: res.data });
         }
       })
       .catch((err) => {
@@ -46,8 +45,7 @@ class ShoppingList extends React.Component {
   }
 
   submitShopping() {
-
-    let submissionItems = this.state.selected.map((index) => {
+    const submissionItems = this.state.selected.map((index) => {
       return this.state.shoppingListItems[index];
     });
 
@@ -66,17 +64,16 @@ class ShoppingList extends React.Component {
   }
 
   handleRowSelection(selectedRows) {
-  console.log(selectedRows);
+    console.log(selectedRows);
     if (Array.isArray(selectedRows)) {
       this.setState({
         selected: selectedRows,
       });
     } else if (selectedRows === 'all') {
       this.setState({
-        selected: this.state.shoppingListItems.map((item, index) => index)
+        selected: this.state.shoppingListItems.map((item, index) => index),
       });
     }
-
   }
 
   isSelected(index) {
@@ -86,10 +83,9 @@ class ShoppingList extends React.Component {
 
 
   render() {
-
     return (
       <div>
-        <Nav page={this.state.page}/>
+        <Nav page={this.state.page} />
         <RaisedButton
           secondary={this.state.selected.length > 0}
           disabled={this.state.selected.length === 0}
@@ -97,8 +93,8 @@ class ShoppingList extends React.Component {
           onTouchTap={this.submitShopping.bind(this)}
         />
         <Table
-          multiSelectable={true}
-          enableSelectAll={true}
+          multiSelectable
+          enableSelectAll
           onRowSelection={this.handleRowSelection}
         >
           <TableHeader>
@@ -106,7 +102,7 @@ class ShoppingList extends React.Component {
               <TableHeaderColumn>Select All</TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody stripedRows={true}>
+          <TableBody stripedRows>
             {this.state.shoppingListItems.map((item, index) => {
               return (
                 <TableRow

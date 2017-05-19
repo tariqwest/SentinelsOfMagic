@@ -9,37 +9,33 @@ class Nav extends React.Component {
     this.state = {
       open: false,
       page: this.props.page,
-      value: 0
+      value: 0,
     };
   }
 
   componentDidMount() {
     if (this.state.page === 'inventory') {
       this.setState({
-        value: 0
+        value: 0,
       });
     } else if (this.state.page === 'shop') {
       this.setState({
-        value: 1
+        value: 1,
       });
     } else if (this.state.page === 'home') {
       this.setState({
-        value: -1
+        value: -1,
       });
     }
   }
 
-  handleToggle(event) {
-    this.setState({ open: !this.state.open });
-  }
-
   handleClose() {
-    this.setState({open: false});
+    this.setState({ open: false });
   }
 
   changeTab(event) {
     this.setState({
-      value: event
+      value: event,
     });
   }
 
@@ -47,8 +43,8 @@ class Nav extends React.Component {
     return (
       <div>
         <Tabs onChange={this.changeTab.bind(this)} value={this.state.value}>
-          <Tab value={0} label='House Inventory' containerElement={<Link to="/inventory"/>}/>
-          <Tab value={1} label='My Shopping List' containerElement={<Link to="/shop"/>}/>
+          <Tab value={0} label="House Inventory" containerElement={<Link to="/inventory" />} />
+          <Tab value={1} label="My Shopping List" containerElement={<Link to="/shop" />} />
         </Tabs>
       </div>
     );
