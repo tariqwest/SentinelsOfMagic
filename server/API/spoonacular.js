@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios');
 
 module.exports = {
@@ -8,24 +9,18 @@ module.exports = {
         offset: 0,
         query: foodString,
       },
-      headers: { 'X-Mashape-Key': 'O6RCwy9tVvmshDcUvPVYufROm1DZp16qheXjsnseE4hVZ3ZAaC', 'Accept': 'application/json' },
+      headers: { 'X-Mashape-Key': process.env.SPOON_KEY, 'Accept': 'application/json' },
     })
     .then(result => {
-      console.log('GOT SOMETHING', result.data);
-      const gcseurl = `https://www.googleapis.com/customsearch/v1?key=AIzaSyCG6r_WhdpDJdZsLvwshBO8dn9UXsk97WU&cx=016450692399248559738:vxvi8rps7ei&searchType=image&imgType=photo&num=1&q=${foodString}`
+      const googleURL = `https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_CSE_API_KEY}&cx=${process.env.GOOGLE_CSE_ID}&searchType=image&imgType=photo&num=1&q=${foodString}`
       const spoonUrlArray = result.data.products;
-
-      axios.get(gcseurl).then(result => {
-        console.log('result = ',result);
-        console.log('foodString = ',foodString);
-        spoonUrlArray.unshift({title: foodString, image: result.data.items[0]['link']});
-        console.log('spoonUrlArray = ',spoonUrlArray);
-
+      axios.get(googleURL).then(googleResult => {
+        spoonUrlArray.unshift({ title: foodString, image: googleResult.data.items[0]['link'] });
+        console.log('spoonUrlArray = ', spoonUrlArray);
         res.json(spoonUrlArray);
-      })
-      // {title: foodString, imgURL: GoogleIMGURL}
+      });
     })
-    
+
     .catch(error => {
       console.log('Something went wrong: ', error);
     });

@@ -20,19 +20,19 @@ class Base extends React.Component {
     .then(res => {
       this.setState({
         joke: res.data.text,
-      })
+      });
     })
     .catch(err => {
       throw err;
-    })
+    });
   }
 
-  handleToggle(event) {
+  handleToggle() {
     this.setState({ open: !this.state.open });
   }
 
   handleClose() {
-    this.setState({open: false});
+    this.setState({ open: false });
   }
 
   render() {
@@ -44,13 +44,13 @@ class Base extends React.Component {
             onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
             title={<NavLink exact to="/" >{this.state.joke}</NavLink>}
           />
-            <Drawer
-              docked={false}
-              open={this.state.open}
-              onRequestChange={open => this.setState({ open })}
-            >
-              <MenuItem onTouchTap={this.handleClose.bind(this)} primaryText="Change User" containerElement={<Link to="/users"/>}/>
-              <MenuItem onTouchTap={this.handleClose.bind(this)} primaryText="Logout" containerElement={<Link to="/logout"/>}/>
+          <Drawer
+            docked={false}
+            open={this.state.open}
+            onRequestChange={open => this.setState({ open })}
+          >
+              <MenuItem onTouchTap={this.handleClose.bind(this)} primaryText="Change User" containerElement={<Link to="/users" />} />
+              <MenuItem onTouchTap={this.handleClose.bind(this)} primaryText="Logout" containerElement={<Link to="/logout" />} />
             </Drawer>
         </div>
       );
@@ -67,8 +67,8 @@ class Base extends React.Component {
               open={this.state.open}
               onRequestChange={open => this.setState({ open })}
             >
-              <MenuItem onTouchTap={this.handleClose.bind(this)} primaryText="Login" containerElement={<Link to="/login"/>}/>
-              <MenuItem onTouchTap={this.handleClose.bind(this)} primaryText="Sign Up" containerElement={<Link to="/signup"/>}/>
+              <MenuItem onTouchTap={this.handleClose.bind(this)} primaryText="Login" containerElement={<Link to="/login" />} />
+              <MenuItem onTouchTap={this.handleClose.bind(this)} primaryText="Sign Up" containerElement={<Link to="/signup" />} />
             </Drawer>
         </div>
       );

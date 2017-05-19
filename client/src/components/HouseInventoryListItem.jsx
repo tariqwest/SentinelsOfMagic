@@ -11,7 +11,7 @@ const styles = {
     maxHeight: '100%',
   },
   img: {
-    minHeight:'100%',
+    minHeight: '100%',
     width: '100%',
   },
   paper: {
@@ -24,7 +24,7 @@ const styles = {
     textDecoration: 'none',
     fontSize: '.8em',
   },
-}
+};
 
 class HouseInventoryListItem extends React.Component {
   constructor(props) {
@@ -57,7 +57,7 @@ class HouseInventoryListItem extends React.Component {
     .then(res => {
       console.log('Successful POST request to /restock');
       this.setState({
-        needToRestock: true
+        needToRestock: true,
       });
     })
     .catch(err => console.log('Bad POST request to /restock: ', err));
@@ -69,44 +69,44 @@ class HouseInventoryListItem extends React.Component {
       console.log('Successful POST request to /claim');
       this.setState({
         username: res.data.username,
-        itemUserId: this.state.userId
+        itemUserId: this.state.userId,
       });
     })
     .catch(err => console.log('Bad POST request to /claim: ', err));
   }
 
-  clickDelete(event) {
+  clickDelete() {
     axios.post('/delete', { itemId: this.state.id })
-    .then(res => {
+    .then(() => {
       console.log('Successful POST request to /delete');
       this.props.submitItem();
     })
-    .catch(err => console.log('Bad POST request to /delete'));
+    .catch(() => console.log('Bad POST request to /delete'));
   }
 
-  clickUnclaim(event) {
+  clickUnclaim() {
     axios.post('/unclaim', { itemId: this.state.id })
-    .then(res => {
+    .then(() => {
       console.log('Successful POST request to /unclaim');
       this.setState({
-        username: null
+        username: null,
       });
     })
-    .catch(err => console.log('Bad POST request to /unclaim'));
+    .catch(() => console.log('Bad POST request to /unclaim'));
   }
 
-  clickUndo(event) {
+  clickUndo() {
     this.setState({
       colorState: this.state.colorStyle.stock,
     });
     axios.post('/undo', { itemId: this.state.id })
-    .then(res => {
+    .then(() => {
       console.log('Successful POST request to /unclaim');
       this.setState({
-        needToRestock: false
+        needToRestock: false,
       });
     })
-    .catch(err => console.log('Bad POST request to /unclaim'));
+    .catch(() => console.log('Bad POST request to /unclaim'));
   }
 
   render() {
@@ -120,8 +120,8 @@ class HouseInventoryListItem extends React.Component {
               <h4>{this.state.price}</h4>
               <IconMenu
                 iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
               >
                 <MenuItem primaryText="Restock" onClick={this.clickRestock.bind(this)} />
                 <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
@@ -140,8 +140,8 @@ class HouseInventoryListItem extends React.Component {
               <h4>{this.state.price}</h4>
               <IconMenu
                 iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
               >
                 <MenuItem primaryText="Claim" onClick={this.clickClaim.bind(this)} />
                 <MenuItem primaryText="Undo" onClick={this.clickUndo.bind(this)} />
@@ -162,8 +162,8 @@ class HouseInventoryListItem extends React.Component {
               <h6>{`Claimed by ${this.state.username}`}</h6>
               <IconMenu
                 iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
               >
                 <MenuItem primaryText="Learn More" />
                 <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
@@ -183,8 +183,8 @@ class HouseInventoryListItem extends React.Component {
               <h6>{`Claimed by You, ${this.state.username}`}</h6>
               <IconMenu
                 iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
               >
                 <MenuItem primaryText="Unclaim" onClick={this.clickUnclaim.bind(this)} />
                 <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />

@@ -32,28 +32,11 @@ class AddItemForm extends React.Component {
     })
     .catch(err => {
       console.log('Bad GET request to /spoonacular', err);
-    })
-  }
-
-  postItem(obj) {
-    axios.post('/add', obj)
-      .then(res => {
-        console.log('Successful POST request to /add');
-        this.props.submitItem();
-        this.props.toggleForm(false);
-      })
-      .catch(err => {
-        console.log('Bad POST request to /add: ', err.response.data);
-        this.setState({
-          errorName: err.response.data.name,
-          errorNotes: err.response.data.notes,
-        });
-      });
+    });
   }
 
   clickSubmit() {
     this.getFoodItems();
-    // this.postItem(this.state);
   }
 
   saveName(event) {
@@ -73,11 +56,10 @@ class AddItemForm extends React.Component {
               value={this.state.name}
               onChange={this.saveName.bind(this)}
               errorText={this.state.errorName}
-            >
-            </TextField>
+            />
           </div>
           <div className="button-line">
-            <RaisedButton primary label="Submit" onClick={this.clickSubmit.bind(this)} />
+            <RaisedButton primary label="Search" onClick={this.clickSubmit.bind(this)} />
           </div>
         </form>
         );

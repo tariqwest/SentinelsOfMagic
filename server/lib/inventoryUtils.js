@@ -1,6 +1,6 @@
-var validateAddItemForm = (form) => {
-  var errors = {};
-  var success = true;
+const validateAddItemForm = (form) => {
+  const errors = {};
+  const success = true;
 
   if (form.name === '') {
     success = false;

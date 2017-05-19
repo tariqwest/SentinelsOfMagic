@@ -10,7 +10,7 @@ const LoginForm = ({
   onChange,
   errors,
   successMessage,
-  user
+  user,
 }) => (
   <Card className="container">
     <form action="/" onSubmit={onSubmit}>

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import Nav from './Nav.jsx';
-import {parse} from 'cookie';
+import { parse } from 'cookie';
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      page: 'home'
+      page: 'home',
     };
   }
 
