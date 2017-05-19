@@ -7,7 +7,7 @@ module.exports = {
   setUpc: (upcCode, callback) => {
       sem3.products.products_field('upc', upcCode); // set up UPC
       // 786162338006 - Smart Water
-      // ç - shakerbottle
+      // 181493000910 - shakerbottle
       // 323900038462 - Nyquil
       // 052800488267 - lotion
       // 012000161155 - lifewater
@@ -21,6 +21,7 @@ module.exports = {
           }
       
       response = JSON.parse(response);
+      
       if (response.results_count === 0){
         callback.end('NO RESULTS')
       } else {
