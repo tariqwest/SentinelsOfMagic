@@ -66,7 +66,6 @@ class AddItemForm extends React.Component {
     if (!this.state.showList) {
       return (
         <form>
-          <h4 className="card-heading">Add New Inventory Item</h4>
           <div className="field-line">
             <TextField
               floatingLabelText="Item Name"

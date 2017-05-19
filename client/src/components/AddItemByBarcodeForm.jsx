@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import Quagga from 'quagga';
+import debounce from 'throttle-debounce/debounce';
 
 const styles = {
   image: {
@@ -27,14 +28,13 @@ class AddItemByBarcodeForm extends React.Component {
       image: '',
       url: '',
       houseId: this.props.houseId,
-      errorName: '',
-      errorText: '',
       decodedBarcode: '',
-      errorDecodedBarcode: '',
+      decodeBarcodeStatus: true,
       productStatus: null,
     };
     this.decodeBarcode = this.decodeBarcode.bind(this);
     this.getProductByBarcode = this.getProductByBarcode.bind(this);
+    this.barcodeEntered = this.barcodeEntered.bind(this);
   }
 
   postItem(obj) {
@@ -58,16 +58,14 @@ class AddItemByBarcodeForm extends React.Component {
     this.postItem(this.state);
   }
 
-  saveName(event) {
+  barcodeEntered(event) {
     this.setState({
-      name: event.target.value
+      decodedBarcode: event.target.value
     });
-  }
 
-  saveNotes(event) {
-    this.setState({
-      notes: event.target.value
-    });
+    if(event.target.value.length >= 12){
+       this.getProductByBarcode(event.target.value);
+    }
   }
 
   decodeBarcode(e){
@@ -80,6 +78,10 @@ class AddItemByBarcodeForm extends React.Component {
           this.getProductByBarcode(result.codeResult.code);
         } else {
           console.log("not detected");
+          this.setState({
+            decodeBarcodeStatus: 'not-detected',
+            decodedBarcode: ''
+          });
         }
       };
     Quagga.decodeSingle({
@@ -89,7 +91,7 @@ class AddItemByBarcodeForm extends React.Component {
           size: 800  // restrict input-size to be 800px in width (long-side)
       },
       decoder: {
-          readers: ["ean_reader"] // List of active readers
+          readers: ["ean_reader", "upc_reader"] // List of active readers
       },
       patchSize: 'medium',
       locate: true
@@ -100,9 +102,9 @@ class AddItemByBarcodeForm extends React.Component {
     this.setState({product: 'loading'});
     axios.post('/find-product', { barcode: barcode })
     .then(res => {
-      console.log(res);
       if (res.data === 'NO RESULTS'){
         // error handling for no UPC results
+        this.setState({productStatus: 'not-found'});
         console.log('NO RESULTS')
       } else {
         this.setState({
@@ -126,6 +128,15 @@ class AddItemByBarcodeForm extends React.Component {
 
   render() {
 
+    const error = ()=>{
+      let error = '';
+      if(this.state.productStatus === 'not-found'){
+        error = 'Sorry, wecouldn\'t find a product matching your barcode.'
+      }else if(this.state.decodeBarcodeStatus === 'not-detected'){
+        error = 'Sorry, we couldn\'t detect a barcode in this photo. Please try another photo, or add this item manually.'
+      }
+      return error;
+    }
     const content = ()=>{
         if(this.state.productStatus === 'loading'){
           return (
@@ -141,6 +152,7 @@ class AddItemByBarcodeForm extends React.Component {
           );
         }else{
           return (
+<<<<<<< HEAD
             <div>
               <div className="field-line">
                 <RaisedButton
@@ -162,6 +174,31 @@ class AddItemByBarcodeForm extends React.Component {
                 />
               </div>
             </div>
+=======
+              <div>
+                <div>{error()}</div>
+                <div className="field-line">
+                  <RaisedButton
+                     containerElement='label' // <-- Just add me!
+                     label='Select Image'>
+                    <input 
+                      type="file"
+                      style={styles.fileinput}
+                      onChange={this.decodeBarcode}
+                    />
+                  </RaisedButton>
+                </div>
+                <div className="field-line">
+                  <TextField
+                    floatingLabelText="UPC Code - 12 or 13 digits"
+                    type="text"
+                    value={this.state.decodedBarcode}
+                    onChange={this.barcodeEntered}
+                  >
+                  </TextField>
+                </div>
+                </div>
+>>>>>>> Implement error states & manual upc input
           );
         }
 

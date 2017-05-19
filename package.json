@@ -46,6 +46,7 @@
     "request": "^2.81.0",
     "semantics3-node": "0.0.3",
     "semantics3-node-client": "^0.1.0",
+    "throttle-debounce": "^1.0.1",
     "webpack": "^2.5.0"
   },
   "devDependencies": {
