@@ -296,6 +296,4 @@ app.listen(process.env.PORT || 1337, function() {
 app.post('/find-product', (req,res) => {
   var barcode = req.body.barcode;
   var result = upc.setUpc(barcode, res);
-  
-  
 })
