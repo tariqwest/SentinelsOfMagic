@@ -41,16 +41,18 @@ CREATE TABLE houses_items (
   house_id integer NOT NULL,
   item_id integer NOT NULL,
   need_to_restock boolean NOT NULL,
-  notes text DEFAULT '',
-  user_id integer
+  user_id integer,
+  image text DEFAULT '',
+  price text DEFAULT '',
+  url text DEFAULT ''
 );
 
 CREATE INDEX houses_items_house_id_index ON houses_items (house_id);
 
 CREATE TABLE users_house_items (
-    id SERIAL PRIMARY KEY,
-    user_id integer NOT NULL,
-    houses_items_id integer NOT NULL
+  id SERIAL PRIMARY KEY,
+  user_id integer NOT NULL,
+  houses_items_id integer NOT NULL
 );
 
 CREATE INDEX users_house_items_user_id_index ON users_house_items (user_id);
