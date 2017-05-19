@@ -13,18 +13,14 @@ module.exports = {
     })
     .then(result => {
       console.log('GOT SOMETHING', result.data);
-      const gcseurl = `https://www.googleapis.com/customsearch/v1?key=${process.env.GCSE_API_KEY}&cx=${process.env.GCSE_ID}&searchType=image&imgType=photo&num=1&q=${foodString}`
+      const googleURL = `https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_API_KEY}&cx=${process.env.GOOGLE_ID}&searchType=image&imgType=photo&num=1&q=${foodString}`
       const spoonUrlArray = result.data.products;
 
-      axios.get(gcseurl).then(result => {
-        console.log('result = ', result);
-        console.log('foodString = ', foodString);
-        spoonUrlArray.unshift({ title: foodString, image: result.data.items[0]['link'] });
+      axios.get(googleURL).then(googleResult => {
+        spoonUrlArray.unshift({ title: foodString, image: googleResult.data.items[0]['link'] });
         console.log('spoonUrlArray = ', spoonUrlArray);
-
         res.json(spoonUrlArray);
       });
-      // {title: foodString, imgURL: GoogleIMGURL}
     })
 
     .catch(error => {
