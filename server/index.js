@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../database/index.js');
@@ -12,7 +12,7 @@ const assignCookie = require('./middleware/assignCookie');
 const checkAuth = require('./middleware/authorizedRequest.js');
 
 // APIs
-const upc = require('./API/Sem.js')
+const upc = require('./API/Sem.js');
 const spoon = require('./API/spoonacular.js');
 
 const app = express();
@@ -127,7 +127,7 @@ app.post('/undo', (req, res) => {
     .catch(err => console.log(`Unable to update item_id = ${req.body.itemId} to need_to_restock = false in HOUSES_ITEMS: `, err));
 });
 
-app.post('/checkUsers', function(req, res) {
+app.post('/checkUsers', function (req, res) {
   db.query('SELECT * FROM users WHERE house_id=${houseId}', { houseId: req.body.houseId })
      .then((data) => {
        res.send(data);
@@ -135,30 +135,30 @@ app.post('/checkUsers', function(req, res) {
      .catch(err => console.log('unable to retrieve users'));
 });
 
-app.post('/createUser', function(req, res) {
+app.post('/createUser', function (req, res) {
   db.query('SELECT * FROM users WHERE username=${userName} and house_id=${houseId#}', { userName: req.body.userName, houseId: req.body.houseId })
-    .then((data)=>{
+    .then((data) => {
       if (data.length === 0) {
         console.log('shouldnt show up if array has stuff');
-        db.query('INSERT INTO users (username, house_id) VALUES (${userName}, ${houseId#})', { userName: req.body.userName, houseId: req.body.houseId } )
+        db.query('INSERT INTO users (username, house_id) VALUES (${userName}, ${houseId#})', { userName: req.body.userName, houseId: req.body.houseId })
           .then(() => {
             res.send('Successfully created user');
           })
-          .catch (err => console.log('unable to create user', err));
+          .catch(err => console.log('unable to create user', err));
       } else {
         res.send('Username already taken. Please enter another.');
       }
     })
-    .catch (err => console.log('unable '));
+    .catch(err => console.log('unable '));
 });
 
-app.post('/settingCooks', function(req, res) {
+app.post('/settingCooks', function (req, res) {
   console.log('shooott...', req.body.userId);
 
   // update session with userId
   var currentSeshId = req.cookies.fridgrSesh.id;
   var sessionQuery = 'UPDATE sessions SET user_id = ${userId#} WHERE id = ${sessionId#}';
-  db.query(sessionQuery, {userId: req.body.userId, sessionId: currentSeshId})
+  db.query(sessionQuery, { userId: req.body.userId, sessionId: currentSeshId })
   .then((sessionData) => {
     console.log('Session updated with userId:', sessionData);
 
@@ -181,16 +181,16 @@ app.post('/settingCooks', function(req, res) {
   //   .catch(err => console.log('unable to set cookies', err));
 });
 
-app.post('/cookUser', function(req, res) {
+app.post('/cookUser', function (req, res) {
   db.query('SELECT * FROM users WHERE username=${userName} AND house_id=${houseId#}', { userName: req.body.userName, houseId: req.body.houseId })
-  .then( (data)=> {
+  .then((data) => {
     // res.clearCookie('userId');
     // res.cookie('userId', data[0].id);
     // res.send(201);
     // update session with userId
     var currentSeshId = req.cookies.fridgrSesh.id;
     var sessionQuery = 'UPDATE sessions SET user_id = ${userId#} WHERE id = ${sessionId#}';
-    db.query(sessionQuery, {userId: data[0].id, sessionId: currentSeshId})
+    db.query(sessionQuery, { userId: data[0].id, sessionId: currentSeshId })
     .then((sessionData) => {
       console.log('Session updated with userId:', data[0].id, sessionData);
 
@@ -204,12 +204,12 @@ app.post('/cookUser', function(req, res) {
       console.log('Error updating session with userId:', data[0].id, err);
     });
   })
-  .catch( err=> console.log('unable to pass cookies', err));
+  .catch(err => console.log('unable to pass cookies', err));
 });
 
-app.post('/users', function(req, res) {
+app.post('/users', function (req, res) {
   db.query('SELECT * FROM users WHERE house_id=${houseId#}', { houseId: req.body.houseId })
-    .then( (data)=> {
+    .then((data) => {
       console.log('getting all users from this house', data);
       res.send(data);
     })
@@ -225,7 +225,6 @@ app.get('/jokes', (req, res) => {
 });
 
 app.post('/add', (req, res) => {
-
   console.log('Adding item to inventory... ');
 
   var validate = utils.validateAddItemForm(req.body);
@@ -240,7 +239,7 @@ app.post('/add', (req, res) => {
       console.log(`Successful query of ITEMS table for ${req.body.name}`);
       if (body.length > 0) {
         db.query('INSERT INTO houses_items (house_id, item_id, need_to_restock, image, price, url) VALUES (${houseId#}, ${itemId#}, ${needToRestock^}, ${image}, ${price}, ${url})',
-          {  houseId: req.body.houseId, itemId: body[0].id, needToRestock: false, image: req.body.image, price: req.body.price, url: req.body.url })
+          { houseId: req.body.houseId, itemId: body[0].id, needToRestock: false, image: req.body.image, price: req.body.price, url: req.body.url })
           .then(() => {
             console.log(`Successful insert into HOUSES_ITEMS table:{ houseId: ${req.body.houseId}, itemId: ${body[0].id}, needToRestock: false, image: ${req.body.image}, price: ${req.body.price}, url: ${req.body.url} })
 `);
@@ -285,15 +284,19 @@ app.post('/api/shop', checkAuth.pageRequest, routeHandlers.updateWithPurchases);
 // });
 
 
-app.get('*', function(req, res) {
+app.get('*', function (req, res) {
   res.sendFile(path.resolve(__dirname + '/../client/dist/index.html'));
 });
 
-app.listen(process.env.PORT || 1337, function() {
+app.listen(process.env.PORT || 1337, function () {
   console.log('Listening on 1337...');
 });
 
-app.post('/find-product', (req,res) => {
+app.post('/find-product', (req, res) => {
   var barcode = req.body.barcode;
   var result = upc.setUpc(barcode, res);
+<<<<<<< HEAD
 })
+=======
+});
+>>>>>>> Clean up code

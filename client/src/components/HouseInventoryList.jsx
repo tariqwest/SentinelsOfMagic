@@ -1,15 +1,15 @@
 import React from 'react';
 import HouseInventoryListItem from './HouseInventoryListItem.jsx';
 
-var HouseInventoryList = (props) => {
+const HouseInventoryList = (props) => {
   return (
     <div className="row">
       {props.items.map((item) =>
         <HouseInventoryListItem
-        item={item}
-        userId={props.userId}
-        key={item.id}
-        submitItem={props.submitItem}
+          item={item}
+          userId={props.userId}
+          key={item.id}
+          submitItem={props.submitItem}
         />
       )}
     </div>

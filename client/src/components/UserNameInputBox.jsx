@@ -1,15 +1,14 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Card } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 
 class UserNameInputBox extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       userName: '',
       userNameExists: false,
-      error: ''
+      error: '',
     };
 
     this.change = this.change.bind(this);
@@ -18,27 +17,27 @@ class UserNameInputBox extends React.Component {
   }
 
   change(e) {
-    this.setState ({
+    this.setState({
       userName: e.target.value,
-      userNameExists: true
+      userNameExists: true,
     });
   }
 
   passDataToCreateUser() {
-    this.props.dataFromInputBox({userName: this.state.userName, userNameExists: this.state.userNameExists});
+    this.props.dataFromInputBox({ userName: this.state.userName, userNameExists: this.state.userNameExists });
     this.setState({
-      userName: ''
+      userName: '',
     });
     this.props.buttonClicked(true);
   }
 
-  render () {
+  render() {
     return (
 
       <div>
-       <TextField type="text" floatingLabelText="Name" errorText={this.props.error} onChange={this.change} value={this.state.userName}></TextField>
+       <TextField type="text" floatingLabelText="Name" errorText={this.props.error} onChange={this.change} value={this.state.userName} />
        <div>
-        <RaisedButton className="somePadding" secondary={true} label="Submit" onClick={(e)=>{ this.passDataToCreateUser(); }}></RaisedButton>
+        <RaisedButton className="somePadding" secondary label="Submit" onClick={() => { this.passDataToCreateUser(); }} />
        </div>
       </div>
 

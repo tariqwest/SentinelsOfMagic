@@ -1,14 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import {parse} from 'cookie';
+import { parse } from 'cookie';
 
 class Logout extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      redirect: false
+      redirect: false,
     };
   }
 
@@ -28,7 +28,7 @@ class Logout extends React.Component {
         localStorage.setItem('successMessage', response.data.message);
 
         context.setState({
-          redirect: true
+          redirect: true,
         });
 
         console.log('Logout successful!');
@@ -38,7 +38,7 @@ class Logout extends React.Component {
       });
     } else {
       this.setState({
-        redirect: true
+        redirect: true,
       });
     }
   }
@@ -47,7 +47,7 @@ class Logout extends React.Component {
     return (
       <div>
         {this.state.redirect ?
-          <Redirect to='/login' /> :
+          <Redirect to="/login" /> :
           null
         }
       </div>

@@ -1,30 +1,27 @@
 import React from 'react';
 import $ from 'jquery';
-import ReactDOM from 'react-dom';
 import UserNameInputBox from './UserNameInputBox.jsx';
-import CookieParser from 'cookie-parser';
 import UserList from './UserList.jsx';
-import { Link } from 'react-router-dom';
 import { Card } from 'material-ui/Card';
-import {parse} from 'cookie';
+import { parse } from 'cookie';
 
 class CreateUser extends React.Component {
   constructor(props) {
     super(props);
 
-    var cookie = parse(document.cookie);
-    var houseId = parseInt(cookie.fridgrSesh.split('"houseId":')[1]);
+    const cookie = parse(document.cookie);
+    const houseId = parseInt(cookie.fridgrSesh.split('"houseId":')[1]);
     console.log('Current houseId:', houseId);
 
     this.state = {
       userName: '',
       userNameExists: false,
       error: '',
-      houseId: houseId,
+      houseId,
       userNameList: [],
       buttonClicked: false,
       usersExist: false,
-      cookieIsSet: false
+      cookieIsSet: false,
     };
 
     this.submitUserName = this.submitUserName.bind(this);
@@ -46,13 +43,13 @@ class CreateUser extends React.Component {
         success: (data) => {
           if (data.length > 0) {
             this.setState({
-              usersExist: true
+              usersExist: true,
             });
             console.log('usersExist');
           } else {
             console.log('usersDontExist');
           }
-        }
+        },
       });
     }
   }
@@ -60,28 +57,28 @@ class CreateUser extends React.Component {
   submitUserName() {
     if (this.state.userName === '') {
       this.setState({
-        error: 'Please enter a valid username'
+        error: 'Please enter a valid username',
       });
     } else {
-      var userName = this.state.userName;
+      let userName = this.state.userName;
       if (this.state.userNameExists === true) {
         $.ajax({
           method: 'POST',
           url: '/createUser',
-          data: { userName: userName, houseId: this.state.houseId },
+          data: { userName, houseId: this.state.houseId },
           success: (data) => {
             console.log('what does it look like', data);
             if (data !== 'Username already taken. Please enter another.') {
               this.state.userNameList.push(this.state.userName);
               this.setState({
-                error: ''
+                error: '',
               });
             } else {
               this.setState({
-                error: data
+                error: data,
               });
             }
-          }
+          },
         });
       }
     }
@@ -91,13 +88,13 @@ class CreateUser extends React.Component {
     $.ajax({
       method: 'POST',
       url: '/cookUser',
-      data: {userName: username, houseId: this.state.houseId},
-      success: (data) => {
+      data: { userName: username, houseId: this.state.houseId },
+      success: () => {
         console.log('done passing the cookie');
         this.setState({
-          cookieIsSet: true
+          cookieIsSet: true,
         });
-      }
+      },
     });
   }
 
@@ -107,24 +104,24 @@ class CreateUser extends React.Component {
     }
     this.setState({
       userName: data.userName,
-      userNameExists: data.userNameExists
-    }, function() {
+      userNameExists: data.userNameExists,
+    }, function () {
       this.submitUserName();
     });
   }
 
   buttonClicked(bool) {
     this.setState({
-      buttonClicked: bool
+      buttonClicked: bool,
     });
   }
 
-  render () {
+  render() {
     return (
       <Card className="container">
         <h4 className="card-heading">Add new users</h4>
-        <UserNameInputBox error={this.state.error} dataFromInputBox={this.dataFromInputBox} submitUserName={this.submitUserName} buttonClicked={this.buttonClicked.bind(this)}/>
-        <UserList error={this.state.error} cookieIsSet={this.state.cookieIsSet} usersExist={this.state.usersExist} addUser={this.state.userNameList} passInCooks={this.passInCooks.bind(this)} clicked={this.state.buttonClicked}/>
+        <UserNameInputBox error={this.state.error} dataFromInputBox={this.dataFromInputBox} submitUserName={this.submitUserName} buttonClicked={this.buttonClicked.bind(this)} />
+        <UserList error={this.state.error} cookieIsSet={this.state.cookieIsSet} usersExist={this.state.usersExist} addUser={this.state.userNameList} passInCooks={this.passInCooks.bind(this)} clicked={this.state.buttonClicked} />
       </Card>
     );
   }
@@ -132,6 +129,4 @@ class CreateUser extends React.Component {
 }
 
 export default CreateUser;
-
-
 

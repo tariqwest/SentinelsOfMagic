@@ -2,22 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 
 class UserList extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: ''
+      user: '',
     };
 
     this.selectUser = this.selectUser.bind(this);
   }
 
-  selectUser(event, index, value) {
+  selectUser(value) {
     this.setState({
-      user: value
+      user: value,
     });
     this.props.passInCooks(value);
   }
@@ -27,7 +26,7 @@ class UserList extends React.Component {
       return (
         <div>
           <SelectField floatingLabelText="Select a user" multiple={false} value={this.state.user} onChange={(e, i, v) => this.selectUser(e, i, v)}>
-            {this.props.addUser.map((user)=>(<MenuItem key={user} label={user} value={user}>{user}</MenuItem>))}
+            {this.props.addUser.map((user) => (<MenuItem key={user} label={user} value={user}>{user}</MenuItem>))}
           </SelectField>
           <div>
             and <Link to="/inventory">continue</Link>

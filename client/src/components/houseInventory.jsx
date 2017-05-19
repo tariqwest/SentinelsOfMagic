@@ -3,7 +3,7 @@ import axios from 'axios';
 import HouseInventoryList from './HouseInventoryList.jsx';
 import Nav from './Nav.jsx';
 import AddItem from './AddItem.jsx';
-import {parse} from 'cookie';
+import { parse } from 'cookie';
 
 class HouseInventory extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class HouseInventory extends React.Component {
       items: [],
       page: 'inventory',
       housename: '',
-      username: ''
+      username: '',
     };
 
     var cookie = parse(document.cookie);
@@ -57,7 +57,7 @@ class HouseInventory extends React.Component {
 
   updateHouseName(data) {
     this.setState({
-      housename: data
+      housename: data,
     });
   }
 
@@ -72,7 +72,7 @@ class HouseInventory extends React.Component {
 
   updateUserName(data) {
     this.setState({
-      username: data
+      username: data,
     });
   }
 
@@ -88,19 +88,19 @@ class HouseInventory extends React.Component {
   updateItems(data) {
     var sortedData = data.sort((a, b) => a.id - b.id);
     this.setState({
-      items: sortedData
+      items: sortedData,
     });
   }
 
   render() {
     return (
       <div className="item">
-        <Nav page={this.state.page}/>
+        <Nav page={this.state.page} />
         <h2>{this.state.housename}</h2>
         <h1>😇</h1>
         <h2>Welcome {this.state.username}</h2>
-        <AddItem houseId={this.state.houseId} submitItem={this.submitItem.bind(this)}/>
-        <HouseInventoryList items={this.state.items} userId={this.state.userId} submitItem={this.submitItem.bind(this)}/>
+        <AddItem houseId={this.state.houseId} submitItem={this.submitItem.bind(this)} />
+        <HouseInventoryList items={this.state.items} userId={this.state.userId} submitItem={this.submitItem.bind(this)} />
       </div>
     );
   }

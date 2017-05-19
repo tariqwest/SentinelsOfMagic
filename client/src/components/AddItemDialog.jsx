@@ -26,26 +26,26 @@ class AddItemDialog extends React.Component {
     this.setState({
       open: true,
     });
-  };
+  }
 
   handleClose() {
     this.setState({
       open: false,
     });
-  };
+  }
 
   render() {
     const actions = [
       <FlatButton
         label="Cancel"
-        primary={true}
+        primary
         onTouchTap={this.handleClose}
       />,
     ];
 
     return (
       <div>
-        <RaisedButton label="Add Item by Search" secondary={true} onTouchTap={this.handleOpen} />
+        <RaisedButton label="Add Item by Search" secondary onTouchTap={this.handleOpen} />
         <Dialog
           title="Add Item by Search"
           actions={actions}

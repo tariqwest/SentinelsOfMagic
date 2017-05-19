@@ -25,26 +25,26 @@ class DialogExampleSimple extends React.Component {
     this.setState({
       open: true,
     });
-  };
+  }
 
   handleClose() {
     this.setState({
       open: false,
     });
-  };
+  }
 
   render() {
     const actions = [
       <FlatButton
         label="Cancel"
-        primary={true}
+        primary
         onTouchTap={this.handleClose}
       />,
     ];
 
     return (
       <div>
-        <RaisedButton label="Add Item by Barcode" secondary={true} onTouchTap={this.handleOpen} />
+        <RaisedButton label="Add Item by Barcode" secondary onTouchTap={this.handleOpen} />
         <Dialog
           title="Add Item By Barcode"
           actions={actions}
@@ -53,7 +53,11 @@ class DialogExampleSimple extends React.Component {
           onRequestClose={this.handleClose}
           contentStyle={styles}
         >
-          <AddItemByBarcodeForm houseId={this.props.houseId} submitItem={this.props.submitItem} handleClose={this.handleClose} />
+          <AddItemByBarcodeForm
+            houseId={this.props.houseId}
+            submitItem={this.props.submitItem}
+            handleClose={this.handleClose}
+          />
         </Dialog>
       </div>
     );

@@ -1,7 +1,6 @@
-let shop = require('../../database/models/shoppingList');
+const shop = require('../../database/models/shoppingList');
 
-let getShoppingList = (req, res) => {
-
+const getShoppingList = (req, res) => {
   shop.getShoppingListForUser(req.cookies.fridgrSesh.userId, req.cookies.fridgrSesh.houseId).then((data) => {
     res.send(data);
   })
@@ -11,8 +10,7 @@ let getShoppingList = (req, res) => {
   });
 };
 
-let updateWithPurchases = (req, res) => {
-
+const updateWithPurchases = (req, res) => {
   shop.updateWithPurchases(req.cookies.fridgrSesh.userId, req.cookies.fridgrSesh.houseId, req.body.data).then((data) => {
     res.send(data);
   })
