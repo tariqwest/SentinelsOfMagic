@@ -1,6 +1,6 @@
 import React from 'react';
 import AddItemForm from './AddItemForm.jsx';
-import ItemSearchDialog from './ItemSearchDialog.jsx';
+import AddItemDialog from './AddItemDialog.jsx';
 import BarcodeSearchDialog from './BarcodeSearchDialog.jsx';
 
 class AddItem extends React.Component {
@@ -15,7 +15,7 @@ class AddItem extends React.Component {
           <BarcodeSearchDialog  houseId={this.props.houseId} submitItem={this.props.submitItem} />
         </div>
         <div className="add-item">
-          <ItemSearchDialog  houseId={this.props.houseId} submitItem={this.props.submitItem} />
+          <AddItemDialog  houseId={this.props.houseId} submitItem={this.props.submitItem} />
         </div>
         </div>
       );
