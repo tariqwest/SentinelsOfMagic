@@ -24,19 +24,20 @@ class AddItemSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      notes: '',
-      searchedFoods: this.props.searchedFoods,
+      name: 'hello world',
+      price: '$99',
+      image: 'http://s.eatthis-cdn.com/media/images/ext/842849976/greasy-fast-food.jpg',
+      url: 'someurl',
       houseId: this.props.houseId,
-      selected: [],
       errorName: '',
       errorText: '',
+      searchedFoods: this.props.searchedFoods,
+      selected: [],
     };
     this.handleSelection = this.handleSelection.bind(this);
   }
 
   postItem(obj) {
-
     axios.post('/add', obj)
     .then(res => {
       console.log('Successful POST request to /add');
@@ -54,11 +55,15 @@ class AddItemSelect extends Component {
 
   handleSelection(index) {
     console.log(this.state.searchedFoods[index].title);
-    this.setState({
+    this.postItem({
       name: this.state.searchedFoods[index].title,
-      notes: this.state.searchedFoods[index].image,
+      price: null,
+      image: this.state.searchedFoods[index].image,
+      url: null,
+      houseId: this.props.houseId,
+      errorName: '',
+      errorText: '',
     });
-    this.postItem(this.state);
   }
 
   render() {
