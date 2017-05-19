@@ -33,22 +33,23 @@ class AddItemByBarcodeForm extends React.Component {
     this.barcodeEntered = this.barcodeEntered.bind(this);
   }
 
+
   decodeBarcode(e) {
     console.log(e.currentTarget.files[0].name);
-    var barcodeImage = e.currentTarget.files[0];
-    var decodeResult = function (result) {
+    const barcodeImage = e.currentTarget.files[0];
+    const decodeResult = (result) => {
       if (result.codeResult) {
         console.log('result', result.codeResult.code);
         this.setState({ decodedBarcode: result.codeResult.code });
         this.getProductByBarcode(result.codeResult.code);
       } else {
-        console.log('not detected');
         this.setState({
           decodeBarcodeStatus: 'not-detected',
           decodedBarcode: '',
         });
       }
-    };
+    }
+
     Quagga.decodeSingle({
       src: URL.createObjectURL(barcodeImage),
       numOfWorkers: 2,  // Needs to be 0 when used within node
@@ -65,18 +66,14 @@ class AddItemByBarcodeForm extends React.Component {
 
   postItem(obj) {
     axios.post('/add', obj)
-    .then(() => {
-      console.log('Successful POST request to /add');
-      this.props.submitItem();
-      this.props.handleClose();
-    })
-    .catch((err) => {
-      console.log('Bad POST request to /add: ', err.response.data);
-      this.setState({
-        errorName: err.response.data.name,
-        errorNotes: err.response.data.notes,
+      .then(res => {
+        console.log('Successful POST request to /add');
+        this.props.submitItem();
+        this.props.handleClose();
+      })
+      .catch((err) => {
+        console.log('Bad POST request to /add: ', err.response.data);
       });
-    });
   }
 
   clickSubmit() {
@@ -129,56 +126,57 @@ class AddItemByBarcodeForm extends React.Component {
         error = 'Sorry, we couldn\'t detect a barcode in this photo.';
       }
       return error;
-    };
-    const content = () => {
-      if (this.state.productStatus === 'loading') {
+    }
+    const content = ()=>{
+      if(this.state.productStatus === 'loading'){
         return (
           <CircularProgress size={80} thickness={5} />
         );
-      } else if (this.state.productStatus === 'found') {
+      }else if(this.state.productStatus === 'found'){
         return (
           <div>
             <img style={styles.image} src={this.state.image} />
             <div>{this.state.name}</div>
             <div>{this.state.price}</div>
+            <div className="button-line">
+              <RaisedButton primary={true} label="Add Item" onClick={this.clickSubmit.bind(this)}></RaisedButton>
+            </div>
           </div>
         );
-      } else {
+      }else{
         return (
-          <div>
-            <div>{error()}</div>
-            <div className="field-line">
-              <RaisedButton
-                containerElement="label" // <-- Just add me!
-                label="Select Image"
-              >
-                <input
-                  type="file"
-                  style={styles.fileinput}
-                  onChange={this.decodeBarcode}
-                />
-              </RaisedButton>
-            </div>
-            <div className="field-line">
-              <TextField
-                floatingLabelText="UPC Code - 12 or 13 digits"
-                type="text"
-                value={this.state.decodedBarcode}
-                onChange={this.barcodeEntered}
-              >
-              </TextField>
-            </div>
-          </div>
+            <div>
+              <div>{error()}</div>
+              <div className="field-line">
+                <RaisedButton
+                   containerElement='label' // <-- Just add me!
+                   label='Select Image'>
+                  <input 
+                    type="file"
+                    style={styles.fileinput}
+                    onChange={this.decodeBarcode}
+                  />
+                </RaisedButton>
+              </div>
+              <div className="field-line">
+                <TextField
+                  floatingLabelText="UPC Code - 12 or 13 digits"
+                  type="text"
+                  value={this.state.decodedBarcode}
+                  onChange={this.barcodeEntered}
+                >
+                </TextField>
+                <div className="button-line">
+                  { this.state.productStatus !== 'found' ? '' : <RaisedButton primary={true} label="Add Item" onClick={this.clickSubmit.bind(this)}></RaisedButton> }
+                </div>
+              </div>
+              </div>
         );
       }
-    };
-
+    }
     return (
       <form>
         {content()}
-        <div className="button-line">
-          <RaisedButton primary label="Add Item" onClick={this.clickSubmit.bind(this)} />
-        </div>
       </form>
     );
   }
