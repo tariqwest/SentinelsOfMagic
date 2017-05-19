@@ -7,7 +7,7 @@ module.exports = {
   setUpc: (upcCode, callback) => {
     sem3.products.products_field('upc', upcCode); // set up UPC
       // 786162338006 - Smart Water
-      // ç - shakerbottle
+      // 181493000910 - shakerbottle
       // 323900038462 - Nyquil
       // 052800488267 - lotion
       // 012000161155 - lifewater
@@ -19,13 +19,16 @@ module.exports = {
           console.log(err);
           return;
         }
-        response = JSON.parse(response);
-        if (response.results_count === 0) {
-          callback.end('NO RESULTS');
-        } else {
-          const options = response.results[0].sitedetails; // array of objs
-          let currentSite = response.results[0].sitedetails[0].url;
-          const currentPrice = response.results[0].price;
+      
+      response = JSON.parse(response);
+      
+      if (response.results_count === 0){
+        callback.end('NO RESULTS')
+      } else {
+        var options = response.results[0].sitedetails; //array of objs
+      var currentSite = response.results[0].sitedetails[0].url;
+      var currentPrice = response.results[0].price;
+
 
           for (let i = 0; i < options.length; i++) {
             for (let j = 0; j < options[i].latestoffers.length; j++) {
