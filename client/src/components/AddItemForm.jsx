@@ -56,19 +56,9 @@ class AddItemForm extends React.Component {
     // this.postItem(this.state);
   }
 
-  clickCancel() {
-    this.props.toggleForm(false);
-  }
-
   saveName(event) {
     this.setState({
       name: event.target.value,
-    });
-  }
-
-  saveNotes(event) {
-    this.setState({
-      notes: event.target.value,
     });
   }
 

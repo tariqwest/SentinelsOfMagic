@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import Star from 'material-ui/svg-icons/toggle/star';
+
+import { GridList, GridTile } from 'material-ui/GridList';
 
 const styles = {
   root: {
@@ -26,8 +24,8 @@ class AddItemSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'hello world',
-      notes: 'hello world',
+      name: '',
+      notes: '',
       searchedFoods: this.props.searchedFoods,
       houseId: this.props.houseId,
       selected: [],
@@ -38,6 +36,7 @@ class AddItemSelect extends Component {
   }
 
   postItem(obj) {
+
     axios.post('/add', obj)
     .then(res => {
       console.log('Successful POST request to /add');
@@ -50,11 +49,15 @@ class AddItemSelect extends Component {
         errorName: err.response.data.name,
         errorNotes: err.response.data.notes,
       });
-    })
+    });
   }
 
   handleSelection(index) {
-    console.log(this.state.searchedFoods[index]);
+    console.log(this.state.searchedFoods[index].title);
+    this.setState({
+      name: this.state.searchedFoods[index].title,
+      notes: this.state.searchedFoods[index].image,
+    });
     this.postItem(this.state);
   }
 
