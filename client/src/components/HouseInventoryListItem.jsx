@@ -5,6 +5,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 
 const styles = {
   cards: {
@@ -114,18 +115,18 @@ class HouseInventoryListItem extends React.Component {
       return (
         <div style={styles.paper}>
           <div className="green item_outer">
-            <div className="item_inner">
-              <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
-              <h2>{this.state.name}</h2>
-              <h4>{this.state.price}</h4>
               <IconMenu
-                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
                 anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
                 targetOrigin={{ horizontal: 'left', vertical: 'top' }}
               >
                 <MenuItem primaryText="Restock" onClick={this.clickRestock.bind(this)} />
                 <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
               </IconMenu>
+            <div className="item_inner">
+              <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
+              <h3>{this.state.name}</h3>
+              <h4>{this.state.price}</h4>
             </div>
           </div>
         </div>
@@ -134,12 +135,8 @@ class HouseInventoryListItem extends React.Component {
       return (
         <div style={styles.paper}>
           <div className="red item_outer">
-            <div className="item_inner">
-              <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
-              <h2>{this.state.name}</h2>
-              <h4>{this.state.price}</h4>
               <IconMenu
-                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
                 anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
                 targetOrigin={{ horizontal: 'left', vertical: 'top' }}
               >
@@ -147,6 +144,10 @@ class HouseInventoryListItem extends React.Component {
                 <MenuItem primaryText="Undo" onClick={this.clickUndo.bind(this)} />
                 <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
               </IconMenu>
+            <div className="item_inner">
+              <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
+              <h3>{this.state.name}</h3>
+              <h4>{this.state.price}</h4>
             </div>
           </div>
         </div>
@@ -155,19 +156,19 @@ class HouseInventoryListItem extends React.Component {
       return (
         <div style={styles.paper}>
           <div className="orange item_outer">
-            <div className="item_inner">
-              <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
-              <h2>{this.state.name}</h2>
-              <h4>{this.state.price}</h4>
-              <h6>{`Claimed by ${this.state.username}`}</h6>
               <IconMenu
-                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
                 anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
                 targetOrigin={{ horizontal: 'left', vertical: 'top' }}
               >
                 <MenuItem primaryText="Learn More" />
                 <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
               </IconMenu>
+            <div className="item_inner">
+              <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
+              <h3>{this.state.name}</h3>
+              <h4>{this.state.price}</h4>
+              <h6>{`Claimed by ${this.state.username}`}</h6>
             </div>
           </div>
         </div>
@@ -176,19 +177,19 @@ class HouseInventoryListItem extends React.Component {
       return (
         <div style={styles.paper}>
           <div className="blue item_outer">
-            <div className="item_inner">
-              <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
-              <h2>{this.state.name}</h2>
-              <h4>{this.state.price}</h4>
-              <h6>{`Claimed by You, ${this.state.username}`}</h6>
               <IconMenu
-                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
                 anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
                 targetOrigin={{ horizontal: 'left', vertical: 'top' }}
               >
                 <MenuItem primaryText="Unclaim" onClick={this.clickUnclaim.bind(this)} />
                 <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
               </IconMenu>
+            <div className="item_inner">
+              <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
+              <h3>{this.state.name}</h3>
+              <h4>{this.state.price}</h4>
+              <h6>{`Claimed by You, ${this.state.username}`}</h6>
             </div>
           </div>
         </div>
