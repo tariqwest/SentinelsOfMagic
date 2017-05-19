@@ -33,9 +33,8 @@ class HouseInventoryListItem extends React.Component {
     this.state = {
       id: this.props.item.id,
       name: this.props.item.name,
-      notes: this.props.item.notes,
-      price: '$99.99',
-      imgSrc: 'https://static01.nyt.com/images/2016/06/28/dining/28COOKING-FRIEDCHICKENGUIDE13/28COOKING-FRIEDCHICKENGUIDE13-superJumbo.jpg',
+      price: this.props.item.price,
+      imgSrc: this.props.item.image,
       needToRestock: this.props.item.needtorestock,
       username: this.props.item.username,
       userId: this.props.userId,
@@ -118,7 +117,6 @@ class HouseInventoryListItem extends React.Component {
             <div className="item_inner">
               <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
               <h2>{this.state.name}</h2>
-              <h4>{this.state.notes}</h4>
               <h4>{this.state.price}</h4>
               <IconMenu
                 iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -139,7 +137,6 @@ class HouseInventoryListItem extends React.Component {
             <div className="item_inner">
               <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
               <h2>{this.state.name}</h2>
-              <h4>{this.state.notes}</h4>
               <h4>{this.state.price}</h4>
               <IconMenu
                 iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -161,7 +158,6 @@ class HouseInventoryListItem extends React.Component {
             <div className="item_inner">
               <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
               <h2>{this.state.name}</h2>
-              <h4>{this.state.notes}</h4>
               <h4>{this.state.price}</h4>
               <h6>{`Claimed by ${this.state.username}`}</h6>
               <IconMenu
@@ -183,7 +179,6 @@ class HouseInventoryListItem extends React.Component {
             <div className="item_inner">
               <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
               <h2>{this.state.name}</h2>
-              <h4>{this.state.notes}</h4>
               <h4>{this.state.price}</h4>
               <h6>{`Claimed by You, ${this.state.username}`}</h6>
               <IconMenu

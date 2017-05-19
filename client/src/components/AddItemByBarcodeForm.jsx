@@ -23,7 +23,9 @@ class AddItemByBarcodeForm extends React.Component {
     super(props);
     this.state = {
       name: '',
-      notes: 'null',
+      price: '',
+      image: '',
+      url: '',
       houseId: this.props.houseId,
       errorName: '',
       errorText: '',
@@ -107,6 +109,7 @@ class AddItemByBarcodeForm extends React.Component {
         name: res.data.title,
         price: res.data.price,
         image: res.data.image,
+        url: res.data.url,
         productStatus: 'found' 
       })
       }
