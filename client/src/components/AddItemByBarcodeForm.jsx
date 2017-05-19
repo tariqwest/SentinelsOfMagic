@@ -48,7 +48,7 @@ class AddItemByBarcodeForm extends React.Component {
           decodedBarcode: '',
         });
       }
-    }
+    };
 
     Quagga.decodeSingle({
       src: URL.createObjectURL(barcodeImage),
@@ -126,13 +126,13 @@ class AddItemByBarcodeForm extends React.Component {
         error = 'Sorry, we couldn\'t detect a barcode in this photo.';
       }
       return error;
-    }
+    };
     const content = ()=>{
-      if(this.state.productStatus === 'loading'){
+      if (this.state.productStatus === 'loading') {
         return (
           <CircularProgress size={80} thickness={5} />
         );
-      }else if(this.state.productStatus === 'found'){
+      } else if (this.state.productStatus === 'found') {
         return (
           <div>
             <img style={styles.image} src={this.state.image} />
@@ -143,37 +143,37 @@ class AddItemByBarcodeForm extends React.Component {
             </div>
           </div>
         );
-      }else{
+      } else {
         return (
-            <div>
-              <div>{error()}</div>
-              <div className="field-line">
-                <RaisedButton
-                   containerElement='label' // <-- Just add me!
-                   label='Select Image'>
-                  <input 
-                    type="file"
-                    style={styles.fileinput}
-                    onChange={this.decodeBarcode}
-                  />
-                </RaisedButton>
+          <div>
+            <div>{error()}</div>
+            <div className="field-line">
+              <RaisedButton
+                 containerElement='label' // <-- Just add me!
+                 label='Select Image'>
+                <input 
+                  type="file"
+                  style={styles.fileinput}
+                  onChange={this.decodeBarcode}
+                />
+              </RaisedButton>
+            </div>
+            <div className="field-line">
+              <TextField
+                floatingLabelText="UPC Code - 12 or 13 digits"
+                type="text"
+                value={this.state.decodedBarcode}
+                onChange={this.barcodeEntered}
+              >
+              </TextField>
+              <div className="button-line">
+                { this.state.productStatus !== 'found' ? '' : <RaisedButton primary={true} label="Add Item" onClick={this.clickSubmit.bind(this)}></RaisedButton> }
               </div>
-              <div className="field-line">
-                <TextField
-                  floatingLabelText="UPC Code - 12 or 13 digits"
-                  type="text"
-                  value={this.state.decodedBarcode}
-                  onChange={this.barcodeEntered}
-                >
-                </TextField>
-                <div className="button-line">
-                  { this.state.productStatus !== 'found' ? '' : <RaisedButton primary={true} label="Add Item" onClick={this.clickSubmit.bind(this)}></RaisedButton> }
-                </div>
-              </div>
-              </div>
+            </div>
+          </div>
         );
       }
-    }
+    };
     return (
       <form>
         {content()}
