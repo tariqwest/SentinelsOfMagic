@@ -59,7 +59,7 @@ class AddItemForm extends React.Component {
             />
           </div>
           <div className="button-line">
-            <RaisedButton primary label="Submit" onClick={this.clickSubmit.bind(this)} />
+            <RaisedButton primary label="Search" onClick={this.clickSubmit.bind(this)} />
           </div>
         </form>
         );
