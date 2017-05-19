@@ -13,7 +13,7 @@ module.exports = {
     })
     .then(result => {
       console.log('GOT SOMETHING', result.data);
-      const gcseurl = `https://www.googleapis.com/customsearch/v1?key=AIzaSyCG6r_WhdpDJdZsLvwshBO8dn9UXsk97WU&cx=016450692399248559738:vxvi8rps7ei&searchType=image&imgType=photo&num=1&q=${foodString}`;
+      const gcseurl = `https://www.googleapis.com/customsearch/v1?key=${process.env.GCSE_API_KEY}&cx=${process.env.GCSE_ID}&searchType=image&imgType=photo&num=1&q=${foodString}`
       const spoonUrlArray = result.data.products;
 
       axios.get(gcseurl).then(result => {
