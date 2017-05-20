@@ -40,7 +40,6 @@ class Base extends React.Component {
       return (
         <div>
           <AppBar
-            className="title"
             onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
             title={<NavLink exact to="/" >{this.state.joke}</NavLink>}
           />
