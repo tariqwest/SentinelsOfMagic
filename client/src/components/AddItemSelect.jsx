@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import { GridList, GridTile } from 'material-ui/GridList';
-import {Card, CardActions, CardMedia, CardTitle } from 'material-ui/Card';
+import { Card, CardActions, CardMedia, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
@@ -19,8 +19,23 @@ const styles = {
   titleStyle: {
     color: 'rgb(0, 188, 212)',
   },
-  media: {
-    height: 'auto',
+  card: {
+    height: '250',
+    width: 'auto',
+    margin: '0 20% 0 20%',
+  },
+  image: {
+    height: '250',
+    width: 'auto',
+  },
+  selected: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '30vw',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    margin: '0 30% 0 30%',
   },
 };
 
@@ -95,18 +110,9 @@ class AddItemSelect extends Component {
       );
     } else {
       return (
-        <div>
-          <Card>
-            <CardMedia
-              overlay={<CardTitle title={this.state.title} />}
-              style={styles.media}
-            >
-              <img src={this.state.image} height="250" width="auto" />
-            </CardMedia>
-            <CardActions>
-              <RaisedButton primary label="Submit" onClick={() => this.handleSubmit()} />
-            </CardActions>
-          </Card>
+        <div style={styles.selected}>
+          <img src={this.state.image} />
+          <RaisedButton primary label="Submit" onClick={() => this.handleSubmit()} />
       </div>
       );
     }
