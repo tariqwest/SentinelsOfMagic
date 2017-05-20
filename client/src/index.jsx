@@ -4,6 +4,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'; // method that returns
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'; // material-ui component
 import injectTapEventPlugin from 'react-tap-event-plugin'; // required for material-ui to function properly
 import { BrowserRouter as Router, Route } from 'react-router-dom'; // react-router v4
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 import Base from './components/Base.jsx';
 import HomePage from './components/HomePage.jsx';
@@ -28,6 +29,7 @@ class App extends React.Component {
     return (
       <div>
         <MuiThemeProvider muiTheme={getMuiTheme()}>
+          <Grid fluid>
           <Router>
             <div>
               <Base />
@@ -41,6 +43,7 @@ class App extends React.Component {
               <Route path="/logout" component={Logout} />
             </div>
           </Router>
+          </Grid>
         </MuiThemeProvider>
       </div>
     );

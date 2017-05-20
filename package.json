@@ -28,6 +28,7 @@
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
     "crypto": "0.0.3",
+    "css-loader": "^0.28.1",
     "dotenv": "^4.0.0",
     "eslint-config-airbnb": "^9.0.1",
     "express": "^4.15.2",
@@ -47,6 +48,7 @@
     "request": "^2.81.0",
     "semantics3-node": "0.0.3",
     "semantics3-node-client": "^0.1.0",
+    "style-loader": "^0.17.0",
     "throttle-debounce": "^1.0.1",
     "webpack": "^2.5.0"
   },

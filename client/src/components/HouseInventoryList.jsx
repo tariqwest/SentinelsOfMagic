@@ -1,24 +1,21 @@
 import React from 'react';
 import HouseInventoryListItem from './HouseInventoryListItem.jsx';
-
-const styles = {
-  inventoryRow: {
-    height: 500
-  }
-};
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 const HouseInventoryList = (props) => {
   return (
-    <div style={styles.inventoryRow} className="row">
+    <Row>
       {props.items.map((item) =>
+        <Col xs={12} sm={6} md={4}>
         <HouseInventoryListItem
           item={item}
           userId={props.userId}
           key={item.id}
           submitItem={props.submitItem}
         />
+        </Col>
       )}
-    </div>
+    </Row>
   );
 };
 
