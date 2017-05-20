@@ -7,25 +7,6 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 
-const styles = {
-  cards: {
-    maxHeight: '100%',
-  },
-  img: {
-    minHeight: '100%',
-    width: '100%',
-  },
-  paper: {
-    maxWidth: '15em',
-    height: 'auto',
-    margin: 20,
-    textAlign: 'center',
-  },
-  anchor: {
-    textDecoration: 'none',
-    fontSize: '.8em',
-  },
-};
 
 class HouseInventoryListItem extends React.Component {
   constructor(props) {
@@ -113,86 +94,78 @@ class HouseInventoryListItem extends React.Component {
   render() {
     if (!this.state.needToRestock) {
       return (
-        <div style={styles.paper}>
           <div className="green item_outer">
-              <IconMenu
-                iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
-                anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
-                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              >
-                <MenuItem primaryText="Restock" onClick={this.clickRestock.bind(this)} />
-                <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
-              </IconMenu>
             <div className="item_inner">
-              <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
+              <img src={this.state.imgSrc} className="z-depth-3" alt="food" />
               <h3>{this.state.name}</h3>
               <h4>{this.state.price}</h4>
             </div>
+            <IconMenu
+              iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
+              anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            >
+              <MenuItem primaryText="Restock" onClick={this.clickRestock.bind(this)} />
+              <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
+            </IconMenu>
           </div>
-        </div>
       );
     } else if (this.state.needToRestock && this.state.username === null) {
       return (
-        <div style={styles.paper}>
           <div className="red item_outer">
-              <IconMenu
-                iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
-                anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
-                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              >
-                <MenuItem primaryText="Claim" onClick={this.clickClaim.bind(this)} />
-                <MenuItem primaryText="Undo" onClick={this.clickUndo.bind(this)} />
-                <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
-              </IconMenu>
             <div className="item_inner">
               <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
               <h3>{this.state.name}</h3>
               <h4>{this.state.price}</h4>
             </div>
+            <IconMenu
+              iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
+              anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            >
+              <MenuItem primaryText="Claim" onClick={this.clickClaim.bind(this)} />
+              <MenuItem primaryText="Undo" onClick={this.clickUndo.bind(this)} />
+              <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
+            </IconMenu>
           </div>
-        </div>
       );
     } else if (this.state.needToRestock && typeof this.state.username === 'string' && Number(this.state.userId) !== Number(this.state.itemUserId)) {
       return (
-        <div style={styles.paper}>
           <div className="orange item_outer">
-              <IconMenu
-                iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
-                anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
-                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              >
-                <MenuItem primaryText="Learn More" />
-                <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
-              </IconMenu>
             <div className="item_inner">
-              <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
+              <img src={this.state.imgSrc} className="z-depth-3" alt="food" />
               <h3>{this.state.name}</h3>
               <h4>{this.state.price}</h4>
               <h6>{`Claimed by ${this.state.username}`}</h6>
             </div>
+            <IconMenu
+              iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
+              anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            >
+              <MenuItem primaryText="Learn More" />
+              <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
+            </IconMenu>
           </div>
-        </div>
       );
     } else if (this.state.needToRestock && typeof this.state.username === 'string' && Number(this.state.userId) === Number(this.state.itemUserId)) {
       return (
-        <div style={styles.paper}>
           <div className="blue item_outer">
-              <IconMenu
-                iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
-                anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
-                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              >
-                <MenuItem primaryText="Unclaim" onClick={this.clickUnclaim.bind(this)} />
-                <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
-              </IconMenu>
             <div className="item_inner">
-              <img src={this.state.imgSrc} width="250" className="z-depth-3" alt="food" />
+              <img src={this.state.imgSrc} className="z-depth-3" alt="food" />
               <h3>{this.state.name}</h3>
               <h4>{this.state.price}</h4>
               <h6>{`Claimed by You, ${this.state.username}`}</h6>
             </div>
+            <IconMenu
+              iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
+              anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            >
+              <MenuItem primaryText="Unclaim" onClick={this.clickUnclaim.bind(this)} />
+              <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
+            </IconMenu>
           </div>
-        </div>
       );
     }
   }
