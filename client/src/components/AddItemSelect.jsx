@@ -4,6 +4,7 @@ import axios from 'axios';
 import { GridList, GridTile } from 'material-ui/GridList';
 import { Card, CardActions, CardMedia, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 const styles = {
   root: {
@@ -88,6 +89,12 @@ class AddItemSelect extends Component {
     this.props.handleClose();
   }
 
+  savePrice (event){
+    this.setState({
+      price: event.target.value
+    })
+  }
+  
   render() {
     if (this.state.showSelection) {
       return (
@@ -112,6 +119,7 @@ class AddItemSelect extends Component {
       return (
         <div style={styles.selected}>
           <img src={this.state.image} />
+          <TextField floatingLabelText="Item Price" value={this.state.price} onChange={this.savePrice.bind(this)}/>
           <RaisedButton primary label="Submit" onClick={() => this.handleSubmit()} />
       </div>
       );
