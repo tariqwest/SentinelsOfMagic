@@ -268,3 +268,7 @@ a:hover {
 .star:active {
   color: red;
 }
+
+span {
+  color: white;
+}
