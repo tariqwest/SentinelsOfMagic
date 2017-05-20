@@ -28,7 +28,26 @@ class HouseInventoryListItem extends React.Component {
         userClaim: 'blue',
       },
       colorState: 'green',
+      width: '',
+      height: '',
     };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillMount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
   }
 
   clickRestock(event) {
@@ -92,7 +111,112 @@ class HouseInventoryListItem extends React.Component {
   }
 
   render() {
-    if (!this.state.needToRestock) {
+
+    const checkInStock = !this.state.needToRestock;
+    const checkNeedToRestock = this.state.needToRestock && this.state.username === null;
+    const checkClaimedByOther = this.state.needToRestock && typeof this.state.username === 'string' && Number(this.state.userId) !== Number(this.state.itemUserId);
+    const checkClaimedByUser = this.state.needToRestock && typeof this.state.username === 'string' && Number(this.state.userId) === Number(this.state.itemUserId);
+
+    const InStockButtons = () => (
+      <div>
+        <FlatButton label="Restock" onClick={this.clickRestock.bind(this)} />
+        <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+      </div>
+    );
+
+    const InStockIcon = () => (
+      <IconMenu
+        iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
+        anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+        targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+      >
+        <MenuItem primaryText="Restock" onClick={this.clickRestock.bind(this)} />
+        <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
+      </IconMenu>
+    );
+
+    const NeedToRestockButtons = () => (
+      <div>
+        <FlatButton label="Claim" onClick={this.clickClaim.bind(this)} />
+        <FlatButton label="Undo" onClick={this.clickUndo.bind(this)} />
+        <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+      </div>
+    );
+
+    const NeedToRestockIcon = () => (
+      <div>
+        <IconMenu
+          iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
+          anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+        >
+        <MenuItem primaryText="Claim" onClick={this.clickClaim.bind(this)} />
+        <MenuItem primaryText="Undo" onClick={this.clickUndo.bind(this)} />
+        <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
+        </IconMenu>
+      </div>
+    );
+
+    const ClaimedByOtherButtons = () => (
+      <div>
+        <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+      </div>
+    );
+
+    const ClaimedByOtherIcon = () => (
+      <div>
+        <IconMenu
+          iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
+          anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+        >
+          <MenuItem primaryText="Learn More" />
+          <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
+        </IconMenu>
+      </div>
+    );
+
+    const ClaimedByUserButtons = () => (
+      <div>
+        <FlatButton label="Unclaim" onClick={this.clickUnclaim.bind(this)} />
+        <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+      </div>
+    );
+
+    const ClaimedByUserIcon = () => (
+      <div>
+        <IconMenu
+          iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
+          anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+        >
+          <MenuItem primaryText="Unclaim" onClick={this.clickUnclaim.bind(this)} />
+          <MenuItem primaryText="Delete" onClick={this.clickDelete.bind(this)} />
+        </IconMenu>
+      </div>
+    );
+
+    let buttons = null;
+
+    if (this.state.height > 736 && checkInStock) {
+      buttons = <InStockButtons />;
+    } else if (this.state.height <= 736 && checkInStock) {
+      buttons = <InStockIcon />;
+    } else if (this.state.height > 736 && checkNeedToRestock) {
+      buttons = <NeedToRestockButtons />;
+    } else if (this.state.height <= 736 && checkNeedToRestock) {
+      buttons = <NeedToRestockIcon />;
+    } else if (this.state.height > 736 && checkClaimedByOther) {
+      buttons = <ClaimedByOtherButtons />;
+    } else if (this.state.height <= 736 && checkClaimedByOther) {
+      buttons = <ClaimedByOtherIcon />;
+    } else if (this.state.height > 736 && checkClaimedByUser) {
+      buttons = <ClaimedByUserButtons />;
+    } else if (this.state.height <= 736 && checkClaimedByUser) {
+      buttons = <ClaimedByUserIcon />;
+    }
+
+    if (checkInStock) {
       return (
           <div className="green item_outer">
             <div className="item_inner">
@@ -101,13 +225,10 @@ class HouseInventoryListItem extends React.Component {
               <h4>{this.state.price}</h4>
               <h6>In Stock</h6>
             </div>
-            <div>
-              <FlatButton label="Restock" onClick={this.clickRestock.bind(this)} />
-              <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
-            </div>
+              {buttons}
           </div>
       );
-    } else if (this.state.needToRestock && this.state.username === null) {
+    } else if (checkNeedToRestock) {
       return (
           <div className="red item_outer">
             <div className="item_inner">
@@ -116,14 +237,10 @@ class HouseInventoryListItem extends React.Component {
               <h4>{this.state.price}</h4>
               <h6>Out of Stock | Unclaimed</h6>
             </div>
-            <div>
-              <FlatButton label="Claim" onClick={this.clickClaim.bind(this)} />
-              <FlatButton label="Undo" onClick={this.clickUndo.bind(this)} />
-              <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
-            </div>
+              {buttons}
           </div>
       );
-    } else if (this.state.needToRestock && typeof this.state.username === 'string' && Number(this.state.userId) !== Number(this.state.itemUserId)) {
+    } else if (checkClaimedByOther) {
       return (
           <div className="orange item_outer">
             <div className="item_inner">
@@ -132,13 +249,12 @@ class HouseInventoryListItem extends React.Component {
               <h4>{this.state.price}</h4>
               <h6>{`Out of Stock | Claimed by ${this.state.username}`}</h6>
             </div>
-
             <div>
-              <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+              {buttons}
             </div>
           </div>
       );
-    } else if (this.state.needToRestock && typeof this.state.username === 'string' && Number(this.state.userId) === Number(this.state.itemUserId)) {
+    } else if (checkClaimedByUser) {
       return (
           <div className="blue item_outer">
             <div className="item_inner">
@@ -147,10 +263,7 @@ class HouseInventoryListItem extends React.Component {
               <h4>{this.state.price}</h4>
               <h6>{`Out of Stock | Claimed by You, ${this.state.username}`}</h6>
             </div>
-            <div>
-              <FlatButton label="Unclaim" onClick={this.clickUnclaim.bind(this)} />
-              <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
-            </div>
+            {buttons}
           </div>
       );
     }
