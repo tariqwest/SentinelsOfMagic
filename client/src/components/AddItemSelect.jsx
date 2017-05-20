@@ -89,12 +89,18 @@ class AddItemSelect extends Component {
     this.props.handleClose();
   }
 
-  savePrice (event){
-    this.setState({
-      price: event.target.value
-    })
+  savePrice(event) {
+    if (event.target.value[0] !== '$') {
+      this.setState({
+        price: `$${event.target.value}`,
+      });
+    } else {
+      this.setState({
+        price: event.target.value,
+      });
+    }
   }
-  
+
   render() {
     if (this.state.showSelection) {
       return (
@@ -119,7 +125,11 @@ class AddItemSelect extends Component {
       return (
         <div style={styles.selected}>
           <img src={this.state.image} />
-          <TextField floatingLabelText="Item Price" value={this.state.price} onChange={this.savePrice.bind(this)}/>
+          <TextField
+            floatingLabelText="Item Price (optional)"
+            value={this.state.price}
+            onChange={this.savePrice.bind(this)}
+          />
           <RaisedButton primary label="Submit" onClick={() => this.handleSubmit()} />
       </div>
       );
