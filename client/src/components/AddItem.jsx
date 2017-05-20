@@ -4,7 +4,7 @@ import AddItemByBarcodeDialog from './AddItemByBarcodeDialog.jsx';
 
 const AddItem = (props) => {
   return (
-    <div>
+    <div className="add-item-flex">
       <div className="add-item">
         <AddItemByBarcodeDialog houseId={props.houseId} submitItem={props.submitItem} />
       </div>

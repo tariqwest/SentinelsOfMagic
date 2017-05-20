@@ -140,6 +140,12 @@ a:hover {
   text-align: center;
 }
 
+.add-item-flex {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
 .add-item {
   text-align: center;
   padding: 20px;
