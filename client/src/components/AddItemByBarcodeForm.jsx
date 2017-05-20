@@ -31,6 +31,7 @@ class AddItemByBarcodeForm extends React.Component {
     this.decodeBarcode = this.decodeBarcode.bind(this);
     this.getProductByBarcode = this.getProductByBarcode.bind(this);
     this.barcodeEntered = this.barcodeEntered.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
 
@@ -117,6 +118,12 @@ class AddItemByBarcodeForm extends React.Component {
 
   }
 
+  handleKeyDown(event) {
+    if (event.key === 'Enter'){
+      event.preventDefault();
+    }
+  }
+
   render() {
     const error = () => {
       let error = '';
@@ -164,6 +171,7 @@ class AddItemByBarcodeForm extends React.Component {
                 type="text"
                 value={this.state.decodedBarcode}
                 onChange={this.barcodeEntered}
+                onKeyDown={this.handleKeyDown}
               >
               </TextField>
               <div className="button-line">
