@@ -12,7 +12,7 @@ module.exports = {
       headers: { 'X-Mashape-Key': process.env.SPOON_KEY, 'Accept': 'application/json' },
     })
     .then(result => {
-      const googleURL = `https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_CSE_API_KEY}&cx=${process.env.GOOGLE_CSE_ID}&searchType=image&imgType=photo&num=1&q=${foodString}`
+      const googleURL = `https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_CSE_API_KEY}&cx=${process.env.GOOGLE_CSE_ID}&searchType=image&imgType=photo&num=1&q=${foodString}`;
       const spoonUrlArray = result.data.products;
       axios.get(googleURL).then(googleResult => {
         spoonUrlArray.unshift({ title: foodString, image: googleResult.data.items[0]['link'] });
