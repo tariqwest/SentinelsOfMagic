@@ -14,13 +14,14 @@ module.exports = {
     .then(result => {
       const googleURL = `https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_CSE_API_KEY}&cx=${process.env.GOOGLE_CSE_ID}&searchType=image&imgType=photo&num=1&q=${foodString}`;
       const spoonUrlArray = result.data.products;
-      axios.get(googleURL).then(googleResult => {
-        spoonUrlArray.unshift({ title: foodString, image: googleResult.data.items[0]['link'] });
-        console.log('spoonUrlArray = ', spoonUrlArray);
-        res.json(spoonUrlArray);
-      });
+      /* Hit limit for Google Search API for the day */
+      // axios.get(googleURL).then(googleResult => {
+      //   spoonUrlArray.unshift({ title: foodString, image: googleResult.data.items[0]['link'] });
+      //   console.log('spoonUrlArray = ', spoonUrlArray);
+      //   res.json(spoonUrlArray);
+      // });
+      res.json(result.data.products);
     })
-
     .catch(error => {
       console.log('Something went wrong: ', error);
     });
