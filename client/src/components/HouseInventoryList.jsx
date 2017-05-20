@@ -1,6 +1,6 @@
 import React from 'react';
 import HouseInventoryListItem from './HouseInventoryListItem.jsx';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Row, Col } from 'react-flexbox-grid';
 
 const HouseInventoryList = (props) => {
   return (

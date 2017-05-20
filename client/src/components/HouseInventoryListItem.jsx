@@ -4,7 +4,6 @@ import axios from 'axios';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -50,12 +49,12 @@ class HouseInventoryListItem extends React.Component {
     });
   }
 
-  clickRestock(event) {
+  clickRestock() {
     this.setState({
       colorState: this.state.colorStyle.restock,
     });
     axios.post('/restock', { itemId: this.state.id })
-    .then(res => {
+    .then(() => {
       console.log('Successful POST request to /restock');
       this.setState({
         needToRestock: true,
@@ -64,7 +63,7 @@ class HouseInventoryListItem extends React.Component {
     .catch(err => console.log('Bad POST request to /restock: ', err));
   }
 
-  clickClaim(event) {
+  clickClaim() {
     axios.post('/claim', { itemId: this.state.id, userId: this.state.userId })
     .then(res => {
       console.log('Successful POST request to /claim');
