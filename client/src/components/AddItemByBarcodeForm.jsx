@@ -34,6 +34,28 @@ class AddItemByBarcodeForm extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
+  getProductByBarcode(barcode) {
+    this.setState({ product: 'loading' });
+    axios.post('/find-product', { barcode })
+    .then(res => {
+      if (res.data === 'NO RESULTS') {
+        // error handling for no UPC results
+        this.setState({ productStatus: 'not-found' });
+        console.log('NO RESULTS');
+      } else {
+        this.setState({
+          name: res.data.title,
+          price: res.data.price,
+          image: res.data.image,
+          url: res.data.url,
+          productStatus: 'found',
+        });
+      }
+    })
+    .catch(err => {
+      throw err;
+    });
+  }
 
   decodeBarcode(e) {
     console.log(e.currentTarget.files[0].name);
@@ -67,7 +89,7 @@ class AddItemByBarcodeForm extends React.Component {
 
   postItem(obj) {
     axios.post('/add', obj)
-      .then(res => {
+      .then(() => {
         console.log('Successful POST request to /add');
         this.props.submitItem();
         this.props.handleClose();
@@ -91,33 +113,6 @@ class AddItemByBarcodeForm extends React.Component {
     }
   }
 
-  getProductByBarcode(barcode) {
-    this.setState({ product: 'loading' });
-    axios.post('/find-product', { barcode })
-    .then(res => {
-      if (res.data === 'NO RESULTS') {
-        // error handling for no UPC results
-        this.setState({ productStatus: 'not-found' });
-        console.log('NO RESULTS');
-      } else {
-        this.setState({
-          name: res.data.title,
-          price: res.data.price,
-          image: res.data.image,
-          url: res.data.url,
-          productStatus: 'found',
-        });
-      }
-    })
-    .catch(err => {
-      throw err;
-    });
-  }
-
-  componentDidMount() {
-
-  }
-
   handleKeyDown(event) {
     if (event.key === 'Enter'){
       event.preventDefault();
@@ -134,7 +129,7 @@ class AddItemByBarcodeForm extends React.Component {
       }
       return error;
     };
-    const content = ()=>{
+    const content = () => {
       if (this.state.productStatus === 'loading') {
         return (
           <CircularProgress size={80} thickness={5} />
@@ -142,11 +137,11 @@ class AddItemByBarcodeForm extends React.Component {
       } else if (this.state.productStatus === 'found') {
         return (
           <div>
-            <img style={styles.image} src={this.state.image} />
+            <img style={styles.image} src={this.state.image} alt="food"/>
             <div>{this.state.name}</div>
             <div>{this.state.price}</div>
             <div className="button-line">
-              <RaisedButton primary={true} label="Add Item" onClick={this.clickSubmit.bind(this)}></RaisedButton>
+              <RaisedButton primary label="Add Item" onClick={this.clickSubmit.bind(this)} />
             </div>
           </div>
         );
@@ -156,9 +151,10 @@ class AddItemByBarcodeForm extends React.Component {
             <div>{error()}</div>
             <div className="field-line">
               <RaisedButton
-                 containerElement='label' // <-- Just add me!
-                 label='Select Image'>
-                <input 
+                containerElement="label" // <-- Just add me!
+                label="Select Image"
+              >
+                <input
                   type="file"
                   style={styles.fileinput}
                   onChange={this.decodeBarcode}
@@ -172,10 +168,9 @@ class AddItemByBarcodeForm extends React.Component {
                 value={this.state.decodedBarcode}
                 onChange={this.barcodeEntered}
                 onKeyDown={this.handleKeyDown}
-              >
-              </TextField>
+              />
               <div className="button-line">
-                { this.state.productStatus !== 'found' ? '' : <RaisedButton primary={true} label="Add Item" onClick={this.clickSubmit.bind(this)}></RaisedButton> }
+                { this.state.productStatus !== 'found' ? '' : <RaisedButton primary label="Add Item" onClick={this.clickSubmit.bind(this)} /> }
               </div>
             </div>
           </div>

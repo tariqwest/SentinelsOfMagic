@@ -4,7 +4,6 @@ import axios from 'axios';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -50,12 +49,12 @@ class HouseInventoryListItem extends React.Component {
     });
   }
 
-  clickRestock(event) {
+  clickRestock() {
     this.setState({
       colorState: this.state.colorStyle.restock,
     });
     axios.post('/restock', { itemId: this.state.id })
-    .then(res => {
+    .then(() => {
       console.log('Successful POST request to /restock');
       this.setState({
         needToRestock: true,
@@ -64,7 +63,7 @@ class HouseInventoryListItem extends React.Component {
     .catch(err => console.log('Bad POST request to /restock: ', err));
   }
 
-  clickClaim(event) {
+  clickClaim() {
     axios.post('/claim', { itemId: this.state.id, userId: this.state.userId })
     .then(res => {
       console.log('Successful POST request to /claim');
@@ -119,8 +118,8 @@ class HouseInventoryListItem extends React.Component {
 
     const InStockButtons = () => (
       <div>
-        <FlatButton label="Restock" onClick={this.clickRestock.bind(this)} />
-        <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+        <FlatButton label="Restock" className="button-depth" onClick={this.clickRestock.bind(this)} />
+        <FlatButton label="Delete" className="button-depth" onClick={this.clickDelete.bind(this)} />
       </div>
     );
 
@@ -137,9 +136,9 @@ class HouseInventoryListItem extends React.Component {
 
     const NeedToRestockButtons = () => (
       <div>
-        <FlatButton label="Claim" onClick={this.clickClaim.bind(this)} />
-        <FlatButton label="Undo" onClick={this.clickUndo.bind(this)} />
-        <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+        <FlatButton label="Claim" className="button-depth" onClick={this.clickClaim.bind(this)} />
+        <FlatButton label="Undo" className="button-depth" onClick={this.clickUndo.bind(this)} />
+        <FlatButton label="Delete" className="button-depth" onClick={this.clickDelete.bind(this)} />
       </div>
     );
 
@@ -159,7 +158,7 @@ class HouseInventoryListItem extends React.Component {
 
     const ClaimedByOtherButtons = () => (
       <div>
-        <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+        <FlatButton label="Delete" className="button-depth" onClick={this.clickDelete.bind(this)} />
       </div>
     );
 
@@ -178,8 +177,8 @@ class HouseInventoryListItem extends React.Component {
 
     const ClaimedByUserButtons = () => (
       <div>
-        <FlatButton label="Unclaim" onClick={this.clickUnclaim.bind(this)} />
-        <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+        <FlatButton label="Unclaim" className="button-depth" onClick={this.clickUnclaim.bind(this)} />
+        <FlatButton label="Delete" className="button-depth" onClick={this.clickDelete.bind(this)} />
       </div>
     );
 

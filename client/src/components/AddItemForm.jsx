@@ -19,7 +19,7 @@ class AddItemForm extends React.Component {
       searchedFood: [],
       showList: false,
     };
-    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   getFoodItems() {
@@ -37,7 +37,7 @@ class AddItemForm extends React.Component {
   }
 
   clickSubmit(event) {
-    console.log(event)
+    console.log(event);
     this.getFoodItems();
   }
 
@@ -48,7 +48,7 @@ class AddItemForm extends React.Component {
   }
 
   handleKeyDown(event) {
-    if (event.key === 'Enter'){
+    if (event.key === 'Enter') {
       event.preventDefault();
       this.clickSubmit();
     }

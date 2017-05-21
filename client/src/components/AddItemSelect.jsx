@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import { GridList, GridTile } from 'material-ui/GridList';
-import { Card, CardActions, CardMedia, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
@@ -64,7 +63,6 @@ class AddItemSelect extends Component {
     .then(() => {
       console.log('Successful POST request to /add');
       this.props.submitItem();
-      // this.props.handleClose();
     })
     .catch(err => {
       console.log('Bad POST request to /add: ', err.response.data);
@@ -90,7 +88,7 @@ class AddItemSelect extends Component {
   }
 
   savePrice(event) {
-    if (event.target.value[0] !== '$') {
+    if (this.state.price[0] !== '$') {
       this.setState({
         price: `$${event.target.value}`,
       });
@@ -124,14 +122,14 @@ class AddItemSelect extends Component {
     } else {
       return (
         <div style={styles.selected}>
-          <img src={this.state.image} />
+          <img src={this.state.image} alt="food" />
           <TextField
             floatingLabelText="Item Price (optional)"
             value={this.state.price}
             onChange={this.savePrice.bind(this)}
           />
           <RaisedButton primary label="Submit" onClick={() => this.handleSubmit()} />
-      </div>
+        </div>
       );
     }
   }
