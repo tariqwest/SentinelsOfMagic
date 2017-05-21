@@ -118,8 +118,8 @@ class HouseInventoryListItem extends React.Component {
 
     const InStockButtons = () => (
       <div>
-        <FlatButton label="Restock" onClick={this.clickRestock.bind(this)} />
-        <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+        <FlatButton label="Restock" className="button-depth" onClick={this.clickRestock.bind(this)} />
+        <FlatButton label="Delete" className="button-depth" onClick={this.clickDelete.bind(this)} />
       </div>
     );
 
@@ -136,9 +136,9 @@ class HouseInventoryListItem extends React.Component {
 
     const NeedToRestockButtons = () => (
       <div>
-        <FlatButton label="Claim" onClick={this.clickClaim.bind(this)} />
-        <FlatButton label="Undo" onClick={this.clickUndo.bind(this)} />
-        <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+        <FlatButton label="Claim" className="button-depth" onClick={this.clickClaim.bind(this)} />
+        <FlatButton label="Undo" className="button-depth" onClick={this.clickUndo.bind(this)} />
+        <FlatButton label="Delete" className="button-depth" onClick={this.clickDelete.bind(this)} />
       </div>
     );
 
@@ -158,7 +158,7 @@ class HouseInventoryListItem extends React.Component {
 
     const ClaimedByOtherButtons = () => (
       <div>
-        <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+        <FlatButton label="Delete" className="button-depth" onClick={this.clickDelete.bind(this)} />
       </div>
     );
 
@@ -177,8 +177,8 @@ class HouseInventoryListItem extends React.Component {
 
     const ClaimedByUserButtons = () => (
       <div>
-        <FlatButton label="Unclaim" onClick={this.clickUnclaim.bind(this)} />
-        <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+        <FlatButton label="Unclaim" className="button-depth" onClick={this.clickUnclaim.bind(this)} />
+        <FlatButton label="Delete" className="button-depth" onClick={this.clickDelete.bind(this)} />
       </div>
     );
 
