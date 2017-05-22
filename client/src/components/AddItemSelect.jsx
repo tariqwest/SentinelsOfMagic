@@ -100,8 +100,7 @@ class AddItemSelect extends Component {
     }
   }
 
-<<<<<<< HEAD
-=======
+
   handleKeyDown(event) {
     if (event.key === 'Enter'){
       event.preventDefault();
@@ -109,7 +108,6 @@ class AddItemSelect extends Component {
     }
   }
 
->>>>>>> fixed enter handler
   render() {
     if (this.state.showSelection) {
       return (
@@ -133,17 +131,17 @@ class AddItemSelect extends Component {
     } else {
       return (
         <div style={styles.selected}>
-<<<<<<< HEAD
+
           <img src={this.state.image} alt="food" />
           <TextField
             floatingLabelText="Item Price (optional)"
             value={this.state.price}
             onChange={this.savePrice.bind(this)}
           />
-=======
+
           <img src={this.state.image} />
           <TextField floatingLabelText="Item Price" value={this.state.price} onChange={this.savePrice.bind(this)} onKeyDown={this.handleKeyDown}/>
->>>>>>> fixed enter handler
+
           <RaisedButton primary label="Submit" onClick={() => this.handleSubmit()} />
         </div>
       );
