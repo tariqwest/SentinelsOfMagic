@@ -109,7 +109,17 @@ class AddItemSelect extends Component {
     }
   }
 
+<<<<<<< HEAD
 >>>>>>> fixed enter handler
+=======
+  handleKeyDown(event) {
+    if (event.key === 'Enter'){
+      event.preventDefault();
+      this.handleSubmit();
+    }
+  }
+
+>>>>>>> 7e5954cc3837a99fd90005612d02adf27fdd5da1
   render() {
     if (this.state.showSelection) {
       return (
@@ -143,7 +153,10 @@ class AddItemSelect extends Component {
 =======
           <img src={this.state.image} />
           <TextField floatingLabelText="Item Price" value={this.state.price} onChange={this.savePrice.bind(this)} onKeyDown={this.handleKeyDown}/>
+<<<<<<< HEAD
 >>>>>>> fixed enter handler
+=======
+>>>>>>> 7e5954cc3837a99fd90005612d02adf27fdd5da1
           <RaisedButton primary label="Submit" onClick={() => this.handleSubmit()} />
         </div>
       );

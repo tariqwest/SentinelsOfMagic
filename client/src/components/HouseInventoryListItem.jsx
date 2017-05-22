@@ -223,8 +223,16 @@ class HouseInventoryListItem extends React.Component {
               <h3>{this.state.name}</h3>
               <h4>{this.state.price}</h4>
               <h6>In Stock</h6>
+<<<<<<< HEAD
             </div>
               {buttons}
+=======
+            </div>
+            <div>
+              <FlatButton label="Restock" onClick={this.clickRestock.bind(this)} />
+              <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+            </div>
+>>>>>>> 7e5954cc3837a99fd90005612d02adf27fdd5da1
           </div>
       );
     } else if (checkNeedToRestock) {
@@ -235,8 +243,17 @@ class HouseInventoryListItem extends React.Component {
               <h3>{this.state.name}</h3>
               <h4>{this.state.price}</h4>
               <h6>Out of Stock | Unclaimed</h6>
+<<<<<<< HEAD
             </div>
               {buttons}
+=======
+            </div>
+            <div>
+              <FlatButton label="Claim" onClick={this.clickClaim.bind(this)} />
+              <FlatButton label="Undo" onClick={this.clickUndo.bind(this)} />
+              <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+            </div>
+>>>>>>> 7e5954cc3837a99fd90005612d02adf27fdd5da1
           </div>
       );
     } else if (checkClaimedByOther) {
@@ -248,8 +265,14 @@ class HouseInventoryListItem extends React.Component {
               <h4>{this.state.price}</h4>
               <h6>{`Out of Stock | Claimed by ${this.state.username}`}</h6>
             </div>
+<<<<<<< HEAD
             <div>
               {buttons}
+=======
+
+            <div>
+              <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+>>>>>>> 7e5954cc3837a99fd90005612d02adf27fdd5da1
             </div>
           </div>
       );
@@ -261,8 +284,16 @@ class HouseInventoryListItem extends React.Component {
               <h3>{this.state.name}</h3>
               <h4>{this.state.price}</h4>
               <h6>{`Out of Stock | Claimed by You, ${this.state.username}`}</h6>
+<<<<<<< HEAD
             </div>
             {buttons}
+=======
+            </div>
+            <div>
+              <FlatButton label="Unclaim" onClick={this.clickUnclaim.bind(this)} />
+              <FlatButton label="Delete" onClick={this.clickDelete.bind(this)} />
+            </div>
+>>>>>>> 7e5954cc3837a99fd90005612d02adf27fdd5da1
           </div>
       );
     }
