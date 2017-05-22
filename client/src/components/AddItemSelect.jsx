@@ -99,10 +99,9 @@ class AddItemSelect extends Component {
       });
     }
   }
-
-
+  
   handleKeyDown(event) {
-    if (event.key === 'Enter'){
+    if (event.key === 'Enter') {
       event.preventDefault();
       this.handleSubmit();
     }
@@ -131,17 +130,13 @@ class AddItemSelect extends Component {
     } else {
       return (
         <div style={styles.selected}>
-
           <img src={this.state.image} alt="food" />
           <TextField
             floatingLabelText="Item Price (optional)"
             value={this.state.price}
             onChange={this.savePrice.bind(this)}
+            onKeyDown={this.handleKeyDown}
           />
-
-          <img src={this.state.image} />
-          <TextField floatingLabelText="Item Price" value={this.state.price} onChange={this.savePrice.bind(this)} onKeyDown={this.handleKeyDown}/>
-
           <RaisedButton primary label="Submit" onClick={() => this.handleSubmit()} />
         </div>
       );
