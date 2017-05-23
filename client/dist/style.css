@@ -90,6 +90,7 @@ a:hover {
 .top-bar a,
 .nav a {
   margin: 0 8px;
+  color: #fff !important;
 }
 
 .container {
