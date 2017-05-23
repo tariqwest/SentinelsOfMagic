@@ -56,6 +56,7 @@ class AddItemSelect extends Component {
       showSelection: true,
     };
     this.handleSelection = this.handleSelection.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   postItem(obj) {
@@ -98,6 +99,13 @@ class AddItemSelect extends Component {
       });
     }
   }
+  
+  handleKeyDown(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.handleSubmit();
+    }
+  }
 
   render() {
     if (this.state.showSelection) {
@@ -127,6 +135,7 @@ class AddItemSelect extends Component {
             floatingLabelText="Item Price (optional)"
             value={this.state.price}
             onChange={this.savePrice.bind(this)}
+            onKeyDown={this.handleKeyDown}
           />
           <RaisedButton primary label="Submit" onClick={() => this.handleSubmit()} />
         </div>
