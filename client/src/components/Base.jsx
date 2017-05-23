@@ -41,7 +41,8 @@ class Base extends React.Component {
         <div>
           <AppBar
             onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
-            title={<NavLink exact to="/" >{this.state.joke}</NavLink>}
+            title={<NavLink exact to="/" >Fridgr+</NavLink>}
+            className="title"
           />
           <Drawer
             docked={false}

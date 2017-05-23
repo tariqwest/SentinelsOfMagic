@@ -221,7 +221,7 @@ class HouseInventoryListItem extends React.Component {
             <div className="item_inner">
               <img src={this.state.imgSrc} className="z-depth-3" alt="food" />
               <h3>{this.state.name}</h3>
-              <h4>{this.state.price}</h4>
+              <h4>{`$${this.state.price}`}</h4>
               <h6>In Stock</h6>
             </div>
               {buttons}

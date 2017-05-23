@@ -90,7 +90,7 @@ class AddItemSelect extends Component {
   savePrice(event) {
     if (this.state.price[0] !== '$') {
       this.setState({
-        price: `$${event.target.value}`,
+        price: `${event.target.value}`,
       });
     } else {
       this.setState({
