@@ -3,6 +3,7 @@ Tracking groceries got you stressed? Chill.
 
 ## Team
 Feature additions and updates by:
+- Alexi Taylor
 - Gregory Coffeng
 - Jason Yu
 - Tariq West
