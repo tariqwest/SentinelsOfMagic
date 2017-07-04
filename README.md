@@ -1,8 +1,8 @@
 # Fridgr+
-Tracking groceries got you stressed? Chill.
+Collaborative grocery shopping. Keep an eye on the pantry and coordinate shopping with your housemates.
 
 ## Team
-Feature additions and updates by:
+
 - Alexi Taylor
 - Gregory Coffeng
 - Jason Yu
@@ -14,72 +14,25 @@ Building on the work of:
 - Ivana He
 - Connor Wilson
 
-## Table of Contents
+## Features
 
-1. [Usage](#Usage)
-2. [Requirements](#requirements)
-3. [Development](#development)
-    - [Installing Dependencies](#installing-dependencies)
-    - [Tasks](#tasks)
-4. [Roadmap](#roadmap)
-5. [Contributing](#contributing)
+- Create a household account and add household members for collaborative grocery list creation and tracking
+- Add grocery items to household list (by text product lookup, by barcode photo/scan product lookup)
+- See photos and prices for grocery list items
+- Track the status of grocery items (in-stock, out of stock)
+- Track who's claimed/committed to picking up an out-of-stock item
 
-## Usage
+## Tech Stack
 
-> Some usage instructions
+- Node
+- Express
+- PostgreSQL
+- React
+- Testing: Mocha, Chai
+- APIs & Libraries: Google Custom Search Enginer (Product Images), Quagga (Barcode Reading), Semantics3 (Product Data), Spoonacular (Product Data)
 
-## Requirements
+### License
 
-- Node 6.4.x
-- Postgresql 9.5.6
+See [MIT License](https://opensource.org/licenses/MIT)
 
-## Development
-
-### Installing Dependencies
-
-From within the root directory:
-
-```sh
-npm install
-```
-
-### PostgreSQL
-
--Install Postgre on your machine in whatever manner suites you.
-
--Create a database called fridgr in PSQL
-
--Create a user (e.g. fridgr_app) with a password
-
--Grant this user permissions to access the database `fridgr`
-
--From project root run
-
-```sh
-psql -U fridgr_app -h 127.0.0.1 -W fridgr < ./database/fridgr.sql
-```
--U tells psql to run command as user (like MySQL, note capital)
-
--h tells psql to make connection as if it were a server, this makes user access consistent with server access, and should save you from having to create two users, let me know if there are issues here
-
--W makes psql ask for password
-
-Now that the database is created and running, create a config.js file in your database directory that module exports the string
-
-'postgres://USERNAME:PASSWORD@localhost:5432/fridgr'
-
-with appropriate replacements for username and password.
-
-Now when running on your dev machine this will be used for database connection, else the heroku DATABASE_URL environment variable will be used.
-
-For deployment to heroku, look up pg:push. Note: user will need schema permissions.
-
-
-### Roadmap
-
-View the project roadmap [here](https://trello.com/b/CBEpWlz0)
-
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+### Happy Coding!
