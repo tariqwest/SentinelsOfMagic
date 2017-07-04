@@ -1,12 +1,17 @@
-# fridgr
+# Fridgr+
 Tracking groceries got you stressed? Chill.
 
 ## Team
+Feature additions and updates by:
+- Gregory Coffeng
+- Jason Yu
+- Tariq West
 
-  - April Ablon
-  - Khoa Vo
-  - Ivana He
-  - Connor Wilson
+Building on the work of:
+- April Ablon
+- Khoa Vo
+- Ivana He
+- Connor Wilson
 
 ## Table of Contents
 
